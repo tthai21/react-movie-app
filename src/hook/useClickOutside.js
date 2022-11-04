@@ -18,7 +18,6 @@ function useClickOutside(dom = "button") {
       document.removeEventListener("click", handleCLickOutside);
     };
   }, [dom]);
- 
   return {
     show,
     setShow,
