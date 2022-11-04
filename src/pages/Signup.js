@@ -45,7 +45,7 @@ const schema = yup.object({
     .required("Please choose your gender")
     .oneOf(["male", "female"]),
   job: yup.string().required("Please select your job"),
-  term: yup.boolean().required("Please accept terms and conditions"),
+  term: yup.boolean().required("Please accept terms and conditions").oneOf([true], "The terms and conditions must be accepted."),
 });
 
 function SignupForm() {
@@ -193,6 +193,7 @@ function SignupForm() {
 
       {/* Button */}
       <Button
+      type="submit"
         className={`w-full p-5 text-white font-semibold mt-5 rounded-lg ${
           isSubmitting ? "opacity-50" : ""
         }`}
