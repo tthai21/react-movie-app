@@ -5,6 +5,7 @@
         "swiper",
         "tailwindcss",
         "tmdb",
-        "toptrending"
+        "toptrending",
+        "tvdb"
     ]
 }

@@ -6,10 +6,10 @@ import {withErrorBoundary} from "react-error-boundary"
 import LoadingSkeleton from "./LoadingSkeleton";
 
 const MovieCard = (props) => {
-  const { title, url, year, rate, id } = props;
+  const { title, url, year, rate, id, type } = props;
   const navigate = useNavigate();
   const navigateHandler = () => {
-    navigate(`/movies/${id}`);
+      navigate(`/${type}/${id}}`)
   };
   return (
     <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-full select-none  ">

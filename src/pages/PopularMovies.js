@@ -15,16 +15,21 @@ const PopularMovies = () => {
   const [url, setUrl] = useState(
     `${tmdb_api.getMovieList("popular",nextPage)}`
   );
-  // const inputRef = useRef();
+
 
   useEffect(() => {
-    setUrl(`${tmdb_url}popular?api_key=${api_key}&page=${nextPage}`);
+    setUrl(`${tmdb_url}/movie/popular?api_key=${api_key}&page=${nextPage}`);
   }, [nextPage]);
   const { data, error } = useSWR(url, fetcher);
+ if(data){
+  
+
+ }
 
   useEffect(() => {
     if (!data || !data.total_results) return;
     setCurrentItems(data);
+    console.log("🚀 ~ file: PopularMovies.js ~ line 32 ~ useEffect ~ data", data)
     setPageCount(Math.ceil(data.total_results / itemsPerPage));
   }, [data, itemOffset]);
 
@@ -39,15 +44,11 @@ const PopularMovies = () => {
   useEffect(() => {
     if (currentItems && currentItems.results) setMovies(currentItems.results);
   }, [currentItems]);
-
+  
   if (!currentItems) return;
   const loading = !currentItems && !error;
-  // const searchHandler = () => {
-  //   setUrl(
-  //     `${search_url}api_key=${api_key}&page=${nextPage}&include_adult=false&query=${inputRef.current.value}&page=${currentItems}`
-  //   );
-  // };
-
+       
+      
   return (
     <div className="py-10 page-container text-white">
       
@@ -65,6 +66,7 @@ const PopularMovies = () => {
               year={item.release_date}
               url={tmdb_api.photoUrl(item.poster_path)}
               rate={item.vote_average}
+              type="movies"
             ></MovieCard>
           ))}
       </div>

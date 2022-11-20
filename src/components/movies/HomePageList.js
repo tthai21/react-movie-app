@@ -4,15 +4,10 @@ import "swiper/scss";
 import useSWR from "swr";
 import { fetcher, tmdb_api } from "config";
 import MovieCard, { MovieCardSkeleton } from "./MovieCard";
-import { useParams } from "react-router-dom";
-import { api_key } from "config";
-import { tmdb_url } from "config";
 
-const MovieList = ({ type }) => {
-  const {id} = useParams()
-  const listUrl=`${tmdb_url}${type}/${id}/similar?api_key=${api_key}&page=1`  
+const HomePageList = ({ url }) => {
   const [movies, setMovies] = useState([]);
-  const { data, error } = useSWR(listUrl, fetcher);
+  const { data, error } = useSWR(url, fetcher);
  
   const isLoading = !data && !error;
 
@@ -49,8 +44,7 @@ const MovieList = ({ type }) => {
                 year={item.release_date || item.first_air_date
                 }
                 url={tmdb_api.photoUrl(item.poster_path)}
-                rate={item.vote_average}
-                type={type}
+                rate={item.vote_average}               
               ></MovieCard>
             </SwiperSlide>
           ))}
@@ -59,4 +53,4 @@ const MovieList = ({ type }) => {
   );
 };
 
-export default MovieList;
+export default HomePageList;

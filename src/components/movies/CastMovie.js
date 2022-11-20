@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
-import { api_key, fetcher,  tmdb_api, tmdb_url } from "config";
+import { api_key, fetcher,  tmdb_api } from "config";
 
-const CastMovie = () => {
-  const { movieId } = useParams();
-  const url = `${tmdb_url}${movieId}/credits?api_key=${api_key}`;
-  const { data } = useSWR(url, fetcher);
+const CastMovie = ({url}) => {
+  const { id } = useParams();
+  const CastUrl = `${url}${id}/credits?api_key=${api_key}`;
+  const { data } = useSWR(CastUrl, fetcher);
   if (!data) return null;
   const { cast } = data;
   const newCast = cast.slice(0, 4);

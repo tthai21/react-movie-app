@@ -45,6 +45,14 @@ const Header = () => {
         >
           Top Trending
         </NavLink>
+        <NavLink
+          to="/tv-episodes"
+          className={({ isActive }) => {
+            return isActive ? "text-primary" : "";
+          }}
+        >
+          Tv Episodes
+        </NavLink>
       </div>
       <div className="flex items-center justify-between gap-x-5 ">
 

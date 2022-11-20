@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { api_key, fetcher } from "config";
 
-const TrailerMovie = () => {
-  const { movieId } = useParams();
-  const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${api_key}&language=en-US`;
+const TrailerMovie = ({url}) => {
+  const { id } = useParams();
+  const TrailerUrl = `${url}${id}/videos?api_key=${api_key}&language=en-US`;
 
-  const { data } = useSWR(url, fetcher);
+  const { data } = useSWR(TrailerUrl, fetcher);
 
   if (!data) return;
   const { results } = data;

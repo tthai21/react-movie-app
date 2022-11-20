@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import MovieList from "components/movies/MovieList";
+import HomePageList from "components/movies/HomePageList";
 import { api_key, tmdb_url } from "config";
 
 const HomePage = () => {
@@ -10,27 +10,27 @@ const HomePage = () => {
         <h2 className="capitalize text-white mb-10  text-3xl font-body">
           Now playing
         </h2>
-        <MovieList
-          url={`${tmdb_url}now_playing?api_key=${api_key}`}
-        ></MovieList>
+        <HomePageList
+          url={`${tmdb_url}movie/now_playing?api_key=${api_key}`}
+        ></HomePageList>
       </section>
       {/* Top play */}
       <section className="movies-layout page-container pb-20">
         <h2 className="capitalize text-white mb-10  text-3xl font-body">
           Top Play
         </h2>
-        <MovieList
-          url={`${tmdb_url}top_rated?api_key=${api_key}`}
-        ></MovieList>
+        <HomePageList
+          url={`${tmdb_url}movie/top_rated?api_key=${api_key}`}
+        ></HomePageList>
       </section>
       {/* Trending */}
       <section className="movies-layout page-container pb-20">
         <h2 className="capitalize text-white mb-10  text-3xl font-body">
           Top Trending
         </h2>
-        <MovieList
-          url={`${tmdb_url}popular?api_key=${api_key}`}
-        ></MovieList>
+        <HomePageList
+          url={`${tmdb_url}movie/popular?api_key=${api_key}`}
+        ></HomePageList>
       </section>
     </Fragment>
   );

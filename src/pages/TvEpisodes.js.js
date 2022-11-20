@@ -2,29 +2,32 @@ import React, { useEffect,  useState } from "react";
 import useSWR from "swr";
 import ReactPaginate from "react-paginate";
 import MovieCard from "../components/movies/MovieCard";
-import { api_key, fetcher,   tmdb_api, tmdb_url } from "config";
+import { api_key, fetcher,   tmdb_api,  } from "config";
 
 const itemsPerPage = 20;
 
-const TopTrending = () => {
+const TvEpisodes = () => {
   // Pagination
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [nextPage, setNextPage] = useState(1);
   const [url, setUrl] = useState(
-    `${tmdb_api.getMovieList("top_rated",nextPage)}`
+    `https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&language=en-US&page=${nextPage}`
   );
   // const inputRef = useRef();
 
   useEffect(() => {
-    setUrl(`${tmdb_url}/movie/top_rated?api_key=${api_key}&page=${nextPage}`);
+    setUrl(`https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&language=en-US&page=${nextPage}`);
+    // setUrl(`https://api.themoviedb.org/3/genre/tv/list?api_key=${api_key}&language=en-US&page=${nextPage}`);
   }, [nextPage]);
   const { data, error } = useSWR(url, fetcher);
+  console.log("🚀 ~ file: TvEpisodes.js.js ~ line 25 ~ TvEpisodes ~ data", data)
 
   useEffect(() => {
     if (!data || !data.total_results) return;
     setCurrentItems(data);
+    console.log("🚀 ~ file: TvEpisodes.js.js ~ line 29 ~ useEffect ~ data", data)
     setPageCount(Math.ceil(data.total_results / itemsPerPage));
   }, [data, itemOffset]);
 
@@ -46,7 +49,7 @@ const TopTrending = () => {
   //   setUrl(
   //     `${search_url}api_key=${api_key}&page=${nextPage}&include_adult=false&query=${inputRef.current.value}&page=${currentItems}`
   //   );
-  // };
+  // }; 
 
   return (
     <div className="py-10 page-container text-white">
@@ -61,11 +64,12 @@ const TopTrending = () => {
             <MovieCard
               id={item.id}
               key={item.id}
-              title={item.title}
-              year={item.release_date}
+              title={item.name}
+              year={item.first_air_date}
               url={tmdb_api.photoUrl(item.poster_path)}
               rate={item.vote_average}
-              type="movies"
+              isEpisodes={true}
+              type="tv"
             ></MovieCard>
           ))}
       </div>
@@ -87,4 +91,4 @@ const TopTrending = () => {
   );
 };
 
-export default TopTrending;
+export default TvEpisodes;

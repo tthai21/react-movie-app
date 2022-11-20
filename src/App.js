@@ -8,6 +8,8 @@ import PopularMovies from "pages/PopularMovies";
 import Login from "pages/Login";
 import TopTrending from "pages/TopTrending";
 import SignupForm from "pages/Signup";
+import TvEpisodes from "pages/TvEpisodes.js";
+
 
 // import HomePage from "./pages/HomePage";
 // import MoviesPage from "./pages/MoviesPage";
@@ -46,17 +48,25 @@ function App() {
               element={<TopTrending></TopTrending>}
             ></Route>
             <Route
+              path="/tv-episodes"
+              element={<TvEpisodes></TvEpisodes>}
+            ></Route>
+            <Route
               path="/login"
               element={<Login></Login>}
-            ></Route>
+            ></Route>u
             <Route
               path="/signup"
               element={<SignupForm></SignupForm>}
             ></Route>
 
             <Route
-              path="/movies/:movieId"
-              element={<MovieDetailsPage></MovieDetailsPage>}
+              path="/movies/:id"
+              element={<MovieDetailsPage type ="movie"></MovieDetailsPage>}
+            ></Route>
+            <Route
+              path="/tv/:id"
+              element={<MovieDetailsPage type="tv"></MovieDetailsPage>}
             ></Route>
             <Route path="*" element={<NotFound></NotFound>}></Route>
           </Route>
