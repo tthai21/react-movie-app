@@ -13,7 +13,7 @@ const TopTrending = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [nextPage, setNextPage] = useState(1);
   const [url, setUrl] = useState(
-    `${tmdb_api.getMovieList("top_rated",nextPage)}`
+    `${tmdb_url}/movie/top_rated?api_key=${api_key}&page=${nextPage}`
   );
   // const inputRef = useRef();
 
@@ -65,7 +65,7 @@ const TopTrending = () => {
               year={item.release_date}
               url={tmdb_api.photoUrl(item.poster_path)}
               rate={item.vote_average}
-              type="movies"
+              type="movie"
             ></MovieCard>
           ))}
       </div>

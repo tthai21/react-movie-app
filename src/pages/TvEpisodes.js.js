@@ -3,6 +3,7 @@ import useSWR from "swr";
 import ReactPaginate from "react-paginate";
 import MovieCard from "../components/movies/MovieCard";
 import { api_key, fetcher,   tmdb_api,  } from "config";
+import { tmdb_url } from "config";
 
 const itemsPerPage = 20;
 
@@ -13,21 +14,18 @@ const TvEpisodes = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [nextPage, setNextPage] = useState(1);
   const [url, setUrl] = useState(
-    `https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&language=en-US&page=${nextPage}`
+    `${tmdb_url}/tv/popular?api_key=${api_key}&language=en-US&page=${nextPage}`
   );
-  // const inputRef = useRef();
 
   useEffect(() => {
-    setUrl(`https://api.themoviedb.org/3/tv/popular?api_key=${api_key}&language=en-US&page=${nextPage}`);
-    // setUrl(`https://api.themoviedb.org/3/genre/tv/list?api_key=${api_key}&language=en-US&page=${nextPage}`);
+    setUrl(`${tmdb_url}tv/popular?api_key=${api_key}&language=en-US&page=${nextPage}`);  
   }, [nextPage]);
   const { data, error } = useSWR(url, fetcher);
-  console.log("🚀 ~ file: TvEpisodes.js.js ~ line 25 ~ TvEpisodes ~ data", data)
+ 
 
   useEffect(() => {
     if (!data || !data.total_results) return;
-    setCurrentItems(data);
-    console.log("🚀 ~ file: TvEpisodes.js.js ~ line 29 ~ useEffect ~ data", data)
+    setCurrentItems(data); 
     setPageCount(Math.ceil(data.total_results / itemsPerPage));
   }, [data, itemOffset]);
 
@@ -45,11 +43,7 @@ const TvEpisodes = () => {
 
   if (!currentItems) return;
   const loading = !currentItems && !error;
-  // const searchHandler = () => {
-  //   setUrl(
-  //     `${search_url}api_key=${api_key}&page=${nextPage}&include_adult=false&query=${inputRef.current.value}&page=${currentItems}`
-  //   );
-  // }; 
+ 
 
   return (
     <div className="py-10 page-container text-white">

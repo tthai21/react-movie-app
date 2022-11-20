@@ -8,10 +8,10 @@ import MovieList from "components/movies/MovieList";
 
 const MovieDetailsPage = ({type}) => {
   const { id } = useParams();
-  console.log("🚀 ~ file: MovieDetailsPage.js ~ line 11 ~ MovieDetailsPage ~ id", id)
-  const DetailsUrl = `${tmdb_url}${type}/${id}?api_key=${api_key}`;
-  console.log("🚀 ~ file: MovieDetailsPage.js ~ line 13 ~ MovieDetailsPage ~ DetailsUrl", DetailsUrl)
+  const DetailsUrl = `${tmdb_url}${type}/${id}?api_key=${api_key}`; 
   const { data } = useSWR(DetailsUrl, fetcher);
+  console.log("🚀 ~ file: MovieDetailsPage.js ~ line 13 ~ MovieDetailsPage ~ data", data)
+  
   if (!data) return null;
   return (
     <>
@@ -65,12 +65,12 @@ const MovieDetailsPage = ({type}) => {
 
         {/* casts */}
         <div className="flex items-center gap-x-5 justify-center">
-          <CastMovie></CastMovie>
+          <CastMovie  type={type}></CastMovie>
         </div>
 
         {/* Trailer */}
         <div>
-          <TrailerMovie></TrailerMovie>
+          <TrailerMovie  type={type}></TrailerMovie>
         </div>
 
         {/* Similar Movies */}

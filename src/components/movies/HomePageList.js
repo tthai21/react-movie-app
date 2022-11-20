@@ -44,7 +44,8 @@ const HomePageList = ({ url }) => {
                 year={item.release_date || item.first_air_date
                 }
                 url={tmdb_api.photoUrl(item.poster_path)}
-                rate={item.vote_average}               
+                rate={item.vote_average} 
+                type="movie"              
               ></MovieCard>
             </SwiperSlide>
           ))}

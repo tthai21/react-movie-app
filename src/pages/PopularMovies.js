@@ -13,7 +13,7 @@ const PopularMovies = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [nextPage, setNextPage] = useState(1);
   const [url, setUrl] = useState(
-    `${tmdb_api.getMovieList("popular",nextPage)}`
+    `${tmdb_url}/movie/popular?api_key=${api_key}&page=${nextPage}`
   );
 
 
@@ -28,8 +28,7 @@ const PopularMovies = () => {
 
   useEffect(() => {
     if (!data || !data.total_results) return;
-    setCurrentItems(data);
-    console.log("🚀 ~ file: PopularMovies.js ~ line 32 ~ useEffect ~ data", data)
+    setCurrentItems(data);    
     setPageCount(Math.ceil(data.total_results / itemsPerPage));
   }, [data, itemOffset]);
 
@@ -66,7 +65,7 @@ const PopularMovies = () => {
               year={item.release_date}
               url={tmdb_api.photoUrl(item.poster_path)}
               rate={item.vote_average}
-              type="movies"
+              type="movie"
             ></MovieCard>
           ))}
       </div>

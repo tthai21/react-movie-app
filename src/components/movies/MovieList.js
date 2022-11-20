@@ -12,7 +12,7 @@ const MovieList = ({ type }) => {
   const {id} = useParams()
   const listUrl=`${tmdb_url}${type}/${id}/similar?api_key=${api_key}&page=1`  
   const [movies, setMovies] = useState([]);
-  const { data, error } = useSWR(listUrl, fetcher);
+  const { data, error } = useSWR(listUrl, fetcher);  
  
   const isLoading = !data && !error;
 

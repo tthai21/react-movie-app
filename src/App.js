@@ -61,7 +61,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/movies/:id"
+              path="/movie/:id"
               element={<MovieDetailsPage type ="movie"></MovieDetailsPage>}
             ></Route>
             <Route
