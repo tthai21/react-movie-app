@@ -41,9 +41,9 @@ const Header = () => {
                 onClick={() => setIsNavOpen(false)} 
               >
                 <svg
-                  className="h-8 w-8 text-gray-600"
+                  className="h-8 w-8 text-white"
                   viewBox="0 0 24 24"
-                  fill="none"
+                  fill="white"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -53,10 +53,11 @@ const Header = () => {
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </div>
-              <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
+              <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px] text-white">
                 <li className="border-b border-gray-400 my-8 uppercase">
                 <NavLink
-            end
+                end
+            onClick={() => setIsNavOpen(false)}
             to="/"
             className={({ isActive }) => (isActive ? "text-primary" : "")}
           >
@@ -69,12 +70,14 @@ const Header = () => {
             className={({ isActive }) => {
               return isActive ? "text-primary" : "";
             }}
+            onClick={() => setIsNavOpen(false)}
           >
             Popular
           </NavLink>
                 </li>
                 <li className="border-b border-gray-400 my-8 uppercase">
                 <NavLink
+                onClick={() => setIsNavOpen(false)}
             to="/toptrending"
             className={({ isActive }) => {
               return isActive ? "text-primary" : "";
@@ -85,6 +88,7 @@ const Header = () => {
                 </li>
                 <li className="border-b border-gray-400 my-8 uppercase">
                 <NavLink
+                onClick={() => setIsNavOpen(false)}
             to="/tv-episodes"
             className={({ isActive }) => {
               return isActive ? "text-primary" : "";
@@ -95,6 +99,7 @@ const Header = () => {
                 </li>
                 <li className="border-b border-gray-400 my-8 uppercase">
                 <NavLink
+                onClick={() => setIsNavOpen(false)}
               to="/signup"
               className={({ isActive }) => {
                 return isActive ? "text-primary" : "";
@@ -105,6 +110,7 @@ const Header = () => {
                 </li>
                 <li className="border-b border-gray-400 my-8 uppercase">
                 <NavLink
+                onClick={() => setIsNavOpen(false)}
               to="/login"
               className={({ isActive }) => {
                 return isActive ? "text-primary" : "";
@@ -129,9 +135,9 @@ const Header = () => {
         position: absolute;
         right: 0;
         top: 0;
-        width: 50%;
+        width: 100%;
         height: 100vh;    
-        background: white;
+        background: rgb(15 23 42 / var(--tw-bg-opacity));
         z-index: 10;
         display: flex;
         flex-direction: column;

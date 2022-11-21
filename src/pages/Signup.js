@@ -84,7 +84,7 @@ function SignupForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmitHandler)}
-      className="border border-primary rounded-lg p-10 block w-[500px]  max-w-[500px] mx-auto my-10 text-xl "
+      className="border border-primary rounded-lg p-10 block lg:w-[500px]  max-w-[500px] mx-auto my-10 text-xl "
     >
       <div className="flex items-center text-2xl font-bold text-white justify-center mb- 10">
         Sign Up Now

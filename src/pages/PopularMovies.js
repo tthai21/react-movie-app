@@ -47,12 +47,12 @@ const PopularMovies = () => {
        
       
   return (
-    <div className="py-10 page-container text-white">
-      
+    <div className="py-10 page-container text-white">      
       {loading && (
         <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
       )}
-      <div className=" grid grid-cols-4 gap-5 mb-10">
+      <div className="w-full mb-10"><h1 className="text-center text-3xl">Popular Movies</h1></div>
+      <div className=" lg:grid lg:grid-cols-4 gap-5 mb-10">
         {!loading &&
           movies?.length > 0 &&
           movies.map((item) => (
