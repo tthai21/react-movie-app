@@ -46,13 +46,12 @@ const TvEpisodes = () => {
  
 
   return (
-    <div className="py-10 page-container text-white">
-      
-      {loading && (
-        <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
-      )}
-      <div className="w-full mb-10"><h1 className="text-center text-3xl">Tv Episodes</h1></div>
-      <div className="lg:grid lg:grid-cols-4 gap-5 mb-10">
+    <div className="py-10 lg:page-container text-white mx-auto w-full">      
+    {loading && (
+      <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
+    )}
+    <div className="w-full mb-10"><h1 className="text-center text-3xl">Tv Episodes</h1></div>
+    <div className=" lg:grid xl:grid lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
         {!loading &&
           movies?.length > 0 &&
           movies.map((item) => (
@@ -61,7 +60,7 @@ const TvEpisodes = () => {
               key={item.id}
               title={item.name}
               year={item.first_air_date}
-              url={tmdb_api.photoUrl(item.backdrop_path)}
+              url={tmdb_api.photoUrl(item.backdrop_path)||tmdb_api.photoUrl(item.poster_path)}
               rate={item.vote_average}             
               type="tv"
             ></MovieCard>

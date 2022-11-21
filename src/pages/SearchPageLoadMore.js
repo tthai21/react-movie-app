@@ -1,18 +1,20 @@
-
+import React, { useEffect, useState } from "react";
+import MovieCard from "../components/movies/MovieCard";
 import { fetcher, tmdb_api } from "config";
+
 import Button from "../components/button/Button";
 import useSWRInfinite from "swr/infinite";
-import { movie_db_url } from "config";
-import { api_key } from "config";
-import MovieCard from "components/movies/MovieCard";
-
-
+// import useDebounce from "../hook/useDebounce";
+import { useLocation } from "react-router-dom";
 
 const itemsPerPage = 20;
 
-const TopRated = () => {   
-  const url = `${movie_db_url}top_rated?api_key=${api_key}&page=1`;
-  console.log("🚀 ~ file: PopularMovies.js ~ line 14 ~ PopularMovies ~ url", url)
+const MoviesPageLoadMore = () => {   
+  const {state} = useLocation();
+  const {searchText} = state
+
+  const [url, setUrl] = useState(tmdb_api.getMovieList("popular"));
+
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) => url.replace("page=1", `page=${index + 1}`),
@@ -26,8 +28,13 @@ const TopRated = () => {
   const isReachingEnd =
   isEmpty || (data && data[data.length - 1]?.results.length < itemsPerPage);
   
-
-  
+  useEffect(() => {
+    if (searchText) {
+      setUrl(tmdb_api.SearchUrl(searchText));
+    } else {
+      setUrl(tmdb_api.getMovieList("popular"));
+    }
+  }, [searchText]);
   
   const loading = !data && !error;
   return (
@@ -35,7 +42,7 @@ const TopRated = () => {
     {loading && (
       <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
     )}
-    <div className="w-full mb-10"><h1 className="text-center text-3xl">Top Trending</h1></div>
+    <div className="w-full mb-10"><h1 className="text-center text-3xl">{searchText.toUpperCase()}</h1></div>
     <div className=" lg:grid xl:grid lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
       {!loading &&
         movies?.length > 0 &&
@@ -63,8 +70,9 @@ const TopRated = () => {
       </div>
 
     </div>
+    
   );
 };
 
 
-export default TopRated;
+export default MoviesPageLoadMore;

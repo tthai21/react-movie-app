@@ -1,11 +1,18 @@
-import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
 import { fetcher, tmdb_api } from "../../config";
 import Button from "../button/Button";
+import SwiperCore, {
+  Autoplay,Pagination,Navigation
+} from 'swiper/core';
+
+SwiperCore.use([Autoplay,Pagination,Navigation]);
+
 
 const Banner = () => {
+
   let moviesUrl = `${tmdb_api.SearchUrl("Avenger",1)}`;
   const { data } = useSWR(moviesUrl, fetcher);
   const movies = data?.results || [];   
@@ -14,8 +21,13 @@ const Banner = () => {
     <section className="banner lg:h-[800px] sm:h-[600px] h-[250px]  page-container mb-20 overflow-hidden ">
       <Swiper
         grabCursor={true}
-        slidesPerView={"auto"}
-        className="h-full rounded-lg "
+        slidesPerView={"auto"}        
+        autoplay={{
+          "delay": 5500,
+          "disableOnInteraction": false
+        }} pagination={{
+          "clickable": true
+        }} navigation={true} className="mySwiper h-full rounded-lg"
       >
         {movies?.length > 0 &&
           movies.map((movie) => (

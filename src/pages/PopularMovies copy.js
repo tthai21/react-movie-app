@@ -10,8 +10,8 @@ import MovieCard from "components/movies/MovieCard";
 
 const itemsPerPage = 20;
 
-const TopRated = () => {   
-  const url = `${movie_db_url}top_rated?api_key=${api_key}&page=1`;
+const PopularMovies = () => {   
+  const url = `${movie_db_url}popular?api_key=${api_key}&page=1`;
   console.log("🚀 ~ file: PopularMovies.js ~ line 14 ~ PopularMovies ~ url", url)
 
   const { data, error, size, setSize } = useSWRInfinite(
@@ -35,7 +35,7 @@ const TopRated = () => {
     {loading && (
       <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
     )}
-    <div className="w-full mb-10"><h1 className="text-center text-3xl">Top Trending</h1></div>
+    <div className="w-full mb-10"><h1 className="text-center text-3xl">Popular Movies</h1></div>
     <div className=" lg:grid xl:grid lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
       {!loading &&
         movies?.length > 0 &&
@@ -45,7 +45,7 @@ const TopRated = () => {
             key={item.id}
             title={item.title}
             year={item.release_date}
-            url={tmdb_api.photoUrl(item.backdrop_path)||tmdb_api.photoUrl(item.poster_path)}
+            url={tmdb_api.photoUrl(item.backdrop_path)}
             rate={item.vote_average}
             type="movie"
           ></MovieCard>
@@ -67,4 +67,4 @@ const TopRated = () => {
 };
 
 
-export default TopRated;
+export default PopularMovies;

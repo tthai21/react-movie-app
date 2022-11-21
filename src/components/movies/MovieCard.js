@@ -13,7 +13,7 @@ const MovieCard = (props) => {
       navigate(`/${type}/${id}}`)
   };
   return (
-    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white lg:h-[500px] md:h-[400px] h-[380px] lg:w-[300px] select-none mb-10">
+    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white lg:h-[500px] xl:w-[300px] select-none mb-10">
       <img
         src={url}
         alt=""

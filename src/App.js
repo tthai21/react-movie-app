@@ -6,10 +6,11 @@ import Main from "./components/layout/Main";
 import NotFound from "./components/layout/NotFound";
 import PopularMovies from "pages/PopularMovies";
 import Login from "pages/Login";
-import TopTrending from "pages/TopTrending";
 import SignupForm from "pages/Signup";
 import TvEpisodes from "pages/TvEpisodes.js";
 import TopRated from "pages/TopRated";
+import SwiperCore, { Autoplay } from 'swiper';
+
 
 
 // import HomePage from "./pages/HomePage";
@@ -18,10 +19,11 @@ import TopRated from "pages/TopRated";
 
 // Dynamic import
 const HomePage = lazy(() => import("./pages/HomePage"));
-const MoviesPageLoadMore = lazy(() => import("./pages/MoviesPageLoadMore"));
+const MoviesPageLoadMore = lazy(() => import("./pages/SearchPageLoadMore"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 
 function App() {
+  SwiperCore.use([Autoplay])
   return (
     <Fragment>
       <Suspense fallback={<></>}>
