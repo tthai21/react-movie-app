@@ -9,6 +9,7 @@ import Login from "pages/Login";
 import TopTrending from "pages/TopTrending";
 import SignupForm from "pages/Signup";
 import TvEpisodes from "pages/TvEpisodes.js";
+import TopRated from "pages/TopRated";
 
 
 // import HomePage from "./pages/HomePage";
@@ -45,7 +46,7 @@ function App() {
             ></Route>
             <Route
               path="/toptrending"
-              element={<TopTrending></TopTrending>}
+              element={<TopRated></TopRated>}
             ></Route>
             <Route
               path="/tv-episodes"

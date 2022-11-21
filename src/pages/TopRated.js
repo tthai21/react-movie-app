@@ -10,8 +10,8 @@ import MovieCard from "components/movies/MovieCard";
 
 const itemsPerPage = 20;
 
-const PopularMovies = () => {   
-  const url = `${movie_db_url}popular?api_key=${api_key}&page=1`;
+const TopRated = () => {   
+  const url = `${movie_db_url}top_rated?api_key=${api_key}&page=1`;
   console.log("🚀 ~ file: PopularMovies.js ~ line 14 ~ PopularMovies ~ url", url)
 
   const { data, error, size, setSize } = useSWRInfinite(
@@ -67,4 +67,4 @@ const PopularMovies = () => {
 };
 
 
-export default PopularMovies;
+export default TopRated;

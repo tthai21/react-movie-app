@@ -13,7 +13,7 @@ const MovieCard = (props) => {
       navigate(`/${type}/${id}}`)
   };
   return (
-    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white lg:h-[500px] sm:h-[400px] h-[380px] select-none mb-10 ">
+    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white lg:h-[500px] md:h-[400px] h-[380px] lg:w-[300px] select-none mb-10">
       <img
         src={url}
         alt=""
@@ -47,7 +47,7 @@ export default withErrorBoundary(MovieCard,{
 
  export const MovieCardSkeleton =()=>{
   return(
-    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-full select-none mb-20 ">
+    <div className="movie-card flex flex-col mx-auto rounded-lg p-3 bg-slate-800  text-white h-full select-none mb-20 ">
      
       <LoadingSkeleton width="100%" height="250px" radius="8px" className="mb-5"></LoadingSkeleton>
       <div className="flex flex-cols flex-1">
