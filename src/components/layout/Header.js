@@ -22,7 +22,8 @@ const Header = () => {
     <>
       {/* Mobile */}
       <div className="flex items-center justify-between border-b border-gray-400 py-8 lg:hidden">
-        <ReactLogo className="w-[180px]"></ReactLogo>
+        <ReactLogo className="w-[180px]"
+        onClick={()=>navigate("/")}></ReactLogo>
 
         <nav>
           <section className="MOBILE-MENU flex lg:hidden">

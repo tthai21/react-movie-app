@@ -17,10 +17,10 @@ const MovieDetailsPage = ({type}) => {
     <>
       <div className="page-container">
         {/* backdrop */}
-        <div className="w-full h-[600px] relative">
-          <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div className="hidden lg:block lg:w-full lg:h-[600px] lg:relative">
+          <div className="lg:absolute lg:inset-0 bg-black opacity-70"></div>
           <div
-            className="w-full h-full bg-cover bg-no-repeat"
+            className="lg:w-full lg:h-full lg:bg-cover lg:bg-no-repeat"
             style={{
               backgroundImage: `url(${tmdb_api.photoUrl(data.backdrop_path)})`,
             }}
@@ -28,7 +28,7 @@ const MovieDetailsPage = ({type}) => {
         </div>
 
         {/* Movie Image */}
-        <div className="w-f h-[400px] max-w-[800px] mx-auto -mt-[200px] relative z-10 mb-10">
+        <div className="w-f lg:h-[400px] lg:max-w-[800px] mx-auto lg:-mt-[200px] relative z-1 mb-10">
           <img
             src={tmdb_api.photoUrl(data.backdrop_path)}
             className="w-full h-full object-top rounded-lg"
@@ -57,7 +57,7 @@ const MovieDetailsPage = ({type}) => {
         </div>
 
         {/* OverView */}
-        <div className="page-container mb-10 w-[600px]">
+        <div className="lg:page-container mb-10 lg:w-[600px]">
           <p className="text-white leading-relaxed text-center">
             {data.overview}
           </p>
@@ -69,7 +69,7 @@ const MovieDetailsPage = ({type}) => {
         </div>
 
         {/* Trailer */}
-        <div>
+        <div className="lg:w-full">
           <TrailerMovie  type={type}></TrailerMovie>
         </div>
 

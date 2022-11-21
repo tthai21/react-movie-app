@@ -24,7 +24,7 @@ const TrailerMovie = ({ type }) => {
   const link = `https://www.youtube-nocookie.com/embed/${trailer?.key}`;
 
   return (
-    <div className="w-[864px] mx-auto aspect-video mb-20">
+    <div className="lg:w-[864px] mx-auto aspect-video mb-20">
       {results && (
         <iframe
           width="864"

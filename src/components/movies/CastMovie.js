@@ -15,11 +15,11 @@ const CastMovie = ({type}) => {
     <div className="flex items-center gap-5 mb-20">
       {newCast &&
         newCast.map((item) => (
-          <div className="mx-2" key={item.id}>
+          <div className=" mx-1 lg:mx-2" key={item.id}>
             <div>
               <img
                 src={tmdb_api.photoUrl(item.profile_path)}
-                className="w-[200px] h-[200px] rounded-full object-cover mb-5"
+                className="w-[80px] h-[80px] lg:w-[200px] lg:h-[200px] rounded-full lg:object-cover mb-5"
                 alt=""
               ></img>
             </div>
