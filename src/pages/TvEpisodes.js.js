@@ -21,6 +21,7 @@ const TvEpisodes = () => {
     setUrl(`${tmdb_url}tv/popular?api_key=${api_key}&language=en-US&page=${nextPage}`);  
   }, [nextPage]);
   const { data, error } = useSWR(url, fetcher);
+  console.log("🚀 ~ file: TvEpisodes.js.js ~ line 24 ~ TvEpisodes ~ data", data)
  
 
   useEffect(() => {

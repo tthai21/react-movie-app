@@ -2,7 +2,9 @@ import React, { Fragment } from "react";
 import HomePageList from "components/movies/HomePageList";
 import { api_key, tmdb_url } from "config";
 
+
 const HomePage = () => {
+
   return (
     <Fragment>
       {/* Now Playing */}

@@ -8,6 +8,14 @@ import RadioHook from "components/form/RadioHook";
 import DropdownHook from "components/form/DropdownHook";
 import CheckboxHook from "components/form/CheckboxHook";
 import Button from "components/button/Button";
+import {
+  createUserWithEmailAndPassword,
+  // onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "../firebase/firebase-config";
+// import { useState } from "react";
+// import {  useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 
 const DropdownData = [
   {
@@ -45,10 +53,15 @@ const schema = yup.object({
     .required("Please choose your gender")
     .oneOf(["male", "female"]),
   job: yup.string().required("Please select your job"),
-  term: yup.boolean().required("Please accept terms and conditions").oneOf([true], "The terms and conditions must be accepted."),
+  term: yup
+    .boolean()
+    .required("Please accept terms and conditions")
+    .oneOf([true], "The terms and conditions must be accepted."),
 });
 
 function SignupForm() {
+  // const navigate = useNavigate()
+  // const [userInfo, setUserInfo] = useState("");
   const {
     handleSubmit,
     formState: { errors, isValid, isSubmitting, isSubmitSuccessful },
@@ -63,23 +76,27 @@ function SignupForm() {
     },
   });
 
-  const onSubmitHandler = (values) => {
+  const onSubmitHandler = async (values) => {
     if (!isValid) return;
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-        reset({
-          username: "",
-          email: "",
-          password: "",
-          gender: "male",
-          job: "",
-          term: false,
-        });
-        console.log(values);
-      }, 5000);
-    });
+    await createUserWithEmailAndPassword(auth, values.email, values.password);
+    reset({
+      username: "",
+      email: "",
+      password: "",
+      gender: "male",
+      job: "",
+      term: false,
+    });    
   };
+
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   setUserInfo(currentUser);
+  // });
+  // console.log(userInfo);
+
+  // useEffect(() =>{
+  //   if(userInfo) return navigate('/',{state:{email: userInfo.email}})
+  // },[navigate, userInfo])
 
   return (
     <form
@@ -193,7 +210,7 @@ function SignupForm() {
 
       {/* Button */}
       <Button
-      type="submit"
+        type="submit"
         className={`w-full p-5 text-white font-semibold mt-5 rounded-lg ${
           isSubmitting ? "opacity-50" : ""
         }`}
@@ -204,7 +221,7 @@ function SignupForm() {
         ) : (
           "Submit"
         )}
-      </Button>
+      </Button>      
     </form>
   );
 }

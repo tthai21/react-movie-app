@@ -3,9 +3,13 @@ import React, { createContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ReactComponent as ReactLogo } from "../../logo/logo.svg";
 
+
 // eslint-disable-next-line no-unused-vars
 
 const Header = () => {
+
+  
+ 
   const [filter, setFilter] = useState("");
   const navigate = useNavigate();
   const searchChangeHandler = (e) => {
@@ -102,7 +106,7 @@ setFilter("")
                   >
                     Tv Episodes
                   </NavLink>
-                </li>
+                </li>              
                 <li className="border-b border-gray-400 my-8 uppercase">
                   <NavLink
                     onClick={() => setIsNavOpen(false)}
@@ -110,10 +114,10 @@ setFilter("")
                     className={({ isActive }) => {
                       return isActive ? "text-primary" : "";
                     }}
-                  >
+                    >
                     Sign up
                   </NavLink>
-                </li>
+                </li>                    
                 <li className="border-b border-gray-400 my-8 uppercase">
                   <NavLink
                     onClick={() => setIsNavOpen(false)}
@@ -121,7 +125,7 @@ setFilter("")
                     className={({ isActive }) => {
                       return isActive ? "text-primary" : "";
                     }}
-                  >
+                    >
                     Log in
                   </NavLink>
                 </li>
@@ -207,7 +211,7 @@ setFilter("")
             </NavLink>
           </div>
 
-          {/* Search-box */}
+          {/* Search-box */}         
           <div className="page-container">
             <form className="flex justify-center h-[50px]">
               <input      

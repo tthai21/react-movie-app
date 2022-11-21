@@ -45,7 +45,8 @@ const MovieList = ({ type }) => {
             <SwiperSlide key={item.id}>
               <MovieCard
                 id={item.id}
-                title={item.title}
+                title={item.title||item.original_name
+                }
                 year={item.release_date || item.first_air_date
                 }
                 url={tmdb_api.photoUrl(item.backdrop_path)}
