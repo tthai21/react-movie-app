@@ -29,9 +29,9 @@ const MovieCard = (props) => {
 
       <div className="flex items-center justify-between text-sm opacity-50 mb-10">
         <span>{new Date(year).getFullYear()}</span>
-        <div className="h-5 flex items-center">
+        <div className="h-5 flex">
           <Star className="w-full h-full inline-block mr-1 leading-none "></Star>
-          <span className="items-center">{rate}</span>
+          <span className="">{rate}</span>
         </div>
       </div>
       <Button onCLick={navigateHandler} bgColor="primary">Watch Now</Button>
