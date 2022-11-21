@@ -63,7 +63,7 @@ const TopTrending = () => {
               key={item.id}
               title={item.title}
               year={item.release_date}
-              url={tmdb_api.photoUrl(item.poster_path)}
+              url={tmdb_api.photoUrl(item.backdrop_path)}
               rate={item.vote_average}
               type="movie"
             ></MovieCard>

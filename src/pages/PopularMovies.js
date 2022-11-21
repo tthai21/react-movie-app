@@ -21,10 +21,8 @@ const PopularMovies = () => {
     setUrl(`${tmdb_url}/movie/popular?api_key=${api_key}&page=${nextPage}`);
   }, [nextPage]);
   const { data, error } = useSWR(url, fetcher);
- if(data){
-  
+  console.log("🚀 ~ file: PopularMovies.js ~ line 24 ~ PopularMovies ~ data", data)
 
- }
 
   useEffect(() => {
     if (!data || !data.total_results) return;
@@ -63,7 +61,7 @@ const PopularMovies = () => {
               key={item.id}
               title={item.title}
               year={item.release_date}
-              url={tmdb_api.photoUrl(item.poster_path)}
+              url={tmdb_api.photoUrl(item.backdrop_path)}
               rate={item.vote_average}
               type="movie"
             ></MovieCard>

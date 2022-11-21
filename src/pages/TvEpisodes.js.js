@@ -60,9 +60,8 @@ const TvEpisodes = () => {
               key={item.id}
               title={item.name}
               year={item.first_air_date}
-              url={tmdb_api.photoUrl(item.poster_path)}
-              rate={item.vote_average}
-              isEpisodes={true}
+              url={tmdb_api.photoUrl(item.backdrop_path)}
+              rate={item.vote_average}             
               type="tv"
             ></MovieCard>
           ))}

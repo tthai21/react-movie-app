@@ -48,7 +48,7 @@ const MovieList = ({ type }) => {
                 title={item.title}
                 year={item.release_date || item.first_air_date
                 }
-                url={tmdb_api.photoUrl(item.poster_path)}
+                url={tmdb_api.photoUrl(item.backdrop_path)}
                 rate={item.vote_average}
                 type={type}
               ></MovieCard>

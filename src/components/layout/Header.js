@@ -19,8 +19,8 @@ const Header = () => {
   };
 
   return (
-    <header className=" page-container header flex items-center justify-between gap-x-5 text-white py-10 mb-5 px-5">
-      <div className="flex gap-11 font-extrabold text-2xl">
+    <header className=" page-container header lg:flex lg:items-center lg:justify-between lg:gap-x-5 text-white py-10 mb-5 px-5">
+      <div className="hidden lg:flex lg:gap-11 font-extrabold text-2xl">
         <NavLink
           end
           to="/"
@@ -54,10 +54,10 @@ const Header = () => {
           Tv Episodes
         </NavLink>
       </div>
-      <div className="flex items-center justify-between gap-x-5 ">
+      <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-5 ">
 
         {/* sign in */}
-        <div className="flex gap-x-5">
+        <div className="hidden lg:flex lg:gap-x-5">
           <NavLink
             to="/login"
             className={({ isActive }) => {

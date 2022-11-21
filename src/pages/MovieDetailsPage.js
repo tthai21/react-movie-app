@@ -22,7 +22,7 @@ const MovieDetailsPage = ({type}) => {
           <div
             className="w-full h-full bg-cover bg-no-repeat"
             style={{
-              backgroundImage: `url(${tmdb_api.photoUrl(data.poster_path)})`,
+              backgroundImage: `url(${tmdb_api.photoUrl(data.backdrop_path)})`,
             }}
           ></div>
         </div>
@@ -30,7 +30,7 @@ const MovieDetailsPage = ({type}) => {
         {/* Movie Image */}
         <div className="w-f h-[400px] max-w-[800px] mx-auto -mt-[200px] relative z-10 mb-10">
           <img
-            src={tmdb_api.photoUrl(data.poster_path)}
+            src={tmdb_api.photoUrl(data.backdrop_path)}
             className="w-full h-full object-top rounded-lg"
             alt=""
           />

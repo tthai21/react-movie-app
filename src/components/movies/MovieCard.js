@@ -7,16 +7,17 @@ import LoadingSkeleton from "./LoadingSkeleton";
 
 const MovieCard = (props) => {
   const { title, url, year, rate, id, type } = props;
+  // console.log("🚀 ~ file: MovieCard.js ~ line 10 ~ MovieCard ~ url", url)
   const navigate = useNavigate();
   const navigateHandler = () => {
       navigate(`/${type}/${id}}`)
   };
   return (
-    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-full select-none  ">
+    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white lg:h-[500px] sm:h-[400px] h-[380px] select-none  ">
       <img
         src={url}
         alt=""
-        className="w-full h-[550px] object-cover rounded-lg mb-5"
+        className=" w-full h-[350px]  object-cover rounded-lg mb-5"
       />
       <div className="flex flex-cols flex-1">
         <h3 className="text-white text-xl font-bold mb-3 flex items-center justify-center text-ellipsis ">

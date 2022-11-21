@@ -8,12 +8,13 @@ import MovieCard, { MovieCardSkeleton } from "./MovieCard";
 const HomePageList = ({ url }) => {
   const [movies, setMovies] = useState([]);
   const { data, error } = useSWR(url, fetcher);
- 
+  
   const isLoading = !data && !error;
-
+  
   useEffect(() => {
     if (data && data.results) setMovies(data.results);
   }, [data]);
+  
   return (
     <div className="movies-list text-white mb20">
       {isLoading && (
@@ -43,7 +44,7 @@ const HomePageList = ({ url }) => {
                 title={item.title}
                 year={item.release_date || item.first_air_date
                 }
-                url={tmdb_api.photoUrl(item.poster_path)}
+                url={tmdb_api.photoUrl(item.backdrop_path)}
                 rate={item.vote_average} 
                 type="movie"              
               ></MovieCard>

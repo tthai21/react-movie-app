@@ -10,7 +10,7 @@ const Banner = () => {
   const movies = data?.results || []; 
 
   return (
-    <section className="banner h-[800px] page-container mb-20 overflow-hidden ">
+    <section className="banner lg:h-[800px] sm:h-[600px]  page-container mb-20 overflow-hidden ">
       <Swiper
         grabCursor={true}
         slidesPerView={"auto"}
@@ -22,8 +22,7 @@ const Banner = () => {
               <BannerItem
                 id={movie.id}
                 movie={movie}
-                url={tmdb_api.photoUrl(movie.poster_path)}
-               
+                url={tmdb_api.photoUrl(movie.backdrop_path)}               
                 title={movie.title}
               ></BannerItem>
             </SwiperSlide>
@@ -36,7 +35,7 @@ const Banner = () => {
 function BannerItem({ title, url, id }) {
   const navigate = useNavigate();
   const navigateHandler = () => {
-    navigate(`/movies/${id}`);
+    navigate(`/movie/${id}`);
   };
   return (
     <div className="w-full h-full rounded-lg relative">

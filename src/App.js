@@ -54,7 +54,7 @@ function App() {
             <Route
               path="/login"
               element={<Login></Login>}
-            ></Route>u
+            ></Route>
             <Route
               path="/signup"
               element={<SignupForm></SignupForm>}
