@@ -12,7 +12,6 @@ const itemsPerPage = 20;
 
 const PopularMovies = () => {   
   const url = `${movie_db_url}popular?api_key=${api_key}&page=1`;
-  console.log("🚀 ~ file: PopularMovies.js ~ line 14 ~ PopularMovies ~ url", url)
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) => url.replace("page=1", `page=${index + 1}`),
