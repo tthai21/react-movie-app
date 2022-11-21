@@ -13,7 +13,9 @@ const Header = () => {
     setFilter(inputValue);
   };
   const filterDebounce = useDebounce(filter, 500);
-  const handleClick = () => {
+  const handleClick = (e) => {
+e.preventDefault()
+setFilter("")
     navigate("/search", { state: { searchText: filterDebounce } });
   };
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -207,14 +209,16 @@ const Header = () => {
 
           {/* Search-box */}
           <div className="page-container">
-            <div className="flex justify-center h-[50px]">
-              <input
+            <form className="flex justify-center h-[50px]">
+              <input      
+                value={filter}         
                 type="text"
                 className="w-[200px] h-[50px] rounded-l-lg p-2 outline-none bg-slate-800 text-white"
                 placeholder="Type here to search..."
                 onChange={searchChangeHandler}
               />
               <button
+              disabled={!filter}
                 onClick={handleClick}
                 className="text-white p-6 h-[50px] bg-primary px-3 rounded-r-lg font-bold mb-16 items-center justify-center flex"
               >
@@ -233,7 +237,7 @@ const Header = () => {
                   />
                 </svg>
               </button>
-            </div>
+            </form>
           </div>
           {/* End-Search-Box */}
         </div>

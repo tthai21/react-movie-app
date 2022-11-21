@@ -4,7 +4,7 @@ import { useController } from "react-hook-form";
 const CheckboxHook = ({ control, text, ...props }) => {
   const { field } = useController({ control, name: props.name });
   return (
-    <label className=" cursor-pointer flex items-center justify-center gap-x-3">
+    <label className=" cursor-pointer flex items-center justify-center gap-x-3 mb-8">
       <input
         type="checkbox"
         {...field}

@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 
 const itemsPerPage = 20;
 
-const MoviesPageLoadMore = () => {   
+const SearchPageLoadMore = () => {   
   const {state} = useLocation();
   const {searchText} = state
 
@@ -75,4 +75,4 @@ const MoviesPageLoadMore = () => {
 };
 
 
-export default MoviesPageLoadMore;
+export default SearchPageLoadMore;

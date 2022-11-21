@@ -13,12 +13,14 @@ const MovieCard = (props) => {
       navigate(`/${type}/${id}}`)
   };
   return (
-    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-[500px] xl:w-[300px] select-none mb-10">
+    <div className=" w-full movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-[500px] xl:w-[300px] select-none mb-10">
+      <div className=" w-full h-[300px] object-contain ">
       <img
         src={url}
         alt=""
-        className=" w-full h-[350px]  object-cover rounded-lg mb-5"
-      />
+        className=" w-full h-[300px]  object-cover rounded-lg mb-5"
+        />
+        </div>
       <div className="flex flex-cols flex-1">
         <h3 className="text-white text-xl font-bold mb-3 flex items-center justify-center text-ellipsis ">
           {title}
@@ -27,7 +29,7 @@ const MovieCard = (props) => {
 
       <div className="flex items-center justify-between text-sm opacity-50 mb-10">
         <span>{new Date(year).getFullYear()}</span>
-        <div className="h-5 flex items-center justify-center">
+        <div className="h-5 flex items-center">
           <Star className="w-full h-full inline-block mr-1 leading-none "></Star>
           <span className="items-center">{rate}</span>
         </div>

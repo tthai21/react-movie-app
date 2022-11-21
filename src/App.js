@@ -13,13 +13,14 @@ import SwiperCore, { Autoplay } from 'swiper';
 
 
 
+
 // import HomePage from "./pages/HomePage";
 // import MoviesPage from "./pages/MoviesPage";
 // import MovieDetailsPage from "./pages/MovieDetailsPage";
 
 // Dynamic import
 const HomePage = lazy(() => import("./pages/HomePage"));
-const MoviesPageLoadMore = lazy(() => import("./pages/SearchPageLoadMore"));
+const SearchPage = lazy(() => import("./pages/SearchPageLoadMore"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
             ></Route>
             <Route
               path="/search"
-              element={<MoviesPageLoadMore></MoviesPageLoadMore>}
+              element={<SearchPage></SearchPage>}
             ></Route>
             <Route
               path="/popular"
