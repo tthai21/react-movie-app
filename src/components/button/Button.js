@@ -23,7 +23,7 @@ const Button = ({
     <button
       type={type}
       onClick={onCLick}
-      className={`py-3 px-6 rounded-lg capitalize mt-auto ${bgClassName} ${className}`}
+      className={`py-3 px-6 rounded-lg capitalize lg:mt-auto ${bgClassName} ${className}`}
       {...props}
     >
       {children}

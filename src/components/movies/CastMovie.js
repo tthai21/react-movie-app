@@ -19,7 +19,7 @@ const CastMovie = ({type}) => {
             <div>
               <img
                 src={tmdb_api.photoUrl(item.profile_path)}
-                className="w-[80px] h-[80px] lg:w-[200px] lg:h-[200px] rounded-full lg:object-cover mb-5"
+                className="w-[60px] h-[60px] lg:w-[200px] lg:h-[200px] rounded-full lg:object-cover mb-5"
                 alt=""
               ></img>
             </div>
