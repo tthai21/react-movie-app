@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
@@ -7,10 +8,10 @@ import Button from "../button/Button";
 const Banner = () => {
   let moviesUrl = `${tmdb_api.SearchUrl("Avenger",1)}`;
   const { data } = useSWR(moviesUrl, fetcher);
-  const movies = data?.results || []; 
+  const movies = data?.results || [];   
 
-  return (
-    <section className="banner lg:h-[800px] sm:h-[600px]  page-container mb-20 overflow-hidden ">
+  return (    
+    <section className="banner lg:h-[800px] sm:h-[600px] h-[250px]  page-container mb-20 overflow-hidden ">
       <Swiper
         grabCursor={true}
         slidesPerView={"auto"}
