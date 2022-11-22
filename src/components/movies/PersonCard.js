@@ -12,7 +12,7 @@ const PersonCard = (props) => {
     navigate(`/${type}/${id}}`);
   };
   return (
-    <div className="min-w-[300px] max-w-[300px] lg:w-full flex flex-col rounded-lg p-3 bg-slate-800  text-white h-[500px] xl:w-[300px] select-none mb-10">
+    <div className="min-w-[300px] max-w-[300px] lg:w-full flex flex-col rounded-lg p-3 bg-slate-800  text-white h-auto xl:w-[300px] select-none mb-10">
       <div className=" w-full h-[300px] object-contain ">
         <img
           src={url}
