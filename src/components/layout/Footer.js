@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   const array = [
     "FAQHelp",
-    "CentreAccountMedia",
+    "CentreAccount",
     "CentreInvestor",
     "relationsJobs",
     "Redeem gift cards",
@@ -25,7 +25,7 @@ const Footer = () => {
     <div>
       <div className="page-container text-white mt-10 mb-20">
         <h5 className="mb-10">Questions? Phone <span className="cursor-pointer hover:text-primary">1800 875 462</span></h5>
-        <div className="grid grid-cols-4 w-full ">
+        <div className="grid sm:grid-cols-4 grid-cols-2 w-full ">
           {array.map((item) => (
             <div className="leading-10 cursor-pointer hover:text-primary" key={item}>{item}</div>
           ))}
