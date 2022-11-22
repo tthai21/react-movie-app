@@ -29,7 +29,7 @@ const MovieCard = (props) => {
       <div className="flex justify-between text-sm opacity-50 mb-10">
         <span>{new Date(year).getFullYear()}</span>
         <div className="h-5 flex items-end justify-end">
-          <Star className="w-full h-full inline-block mr-1 leading-none "></Star>
+          <Star className="flex items-end justify-end w-full h-full  mr-1 leading-none "></Star>
           <span className="">{rate}</span>
         </div>
       </div>
