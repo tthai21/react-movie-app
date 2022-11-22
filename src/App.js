@@ -8,16 +8,18 @@ import PopularMovies from "pages/PopularMovies";
 import Login from "pages/Login";
 import SignupForm from "pages/Signup";
 import TvEpisodes from "pages/TvEpisodes.js";
-import TopRated from "pages/TopRated";
 import SwiperCore, { Autoplay } from "swiper";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase-config";
+import { movie_db_url } from "config";
+import { api_key } from "config";
+import MovieCastDetailsPage from "pages/MovieCastDetailsPage";
 
 
 
 // Dynamic import
 const HomePage = lazy(() => import("./pages/HomePage"));
-const SearchPage = lazy(() => import("./pages/SearchPageLoadMore"));
+const SearchPage = lazy(() => import("./pages/SearchPage"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 
 function App() {
@@ -43,16 +45,15 @@ function App() {
             <Route path="/search" element={<SearchPage></SearchPage>}></Route>
             <Route
               path="/popular"
-              element={<PopularMovies></PopularMovies>}
-            ></Route>
-            <Route path="/toptrending" element={<TopRated></TopRated>}></Route>
+              element={<PopularMovies url = {`${movie_db_url}popular?api_key=${api_key}&page=1`}></PopularMovies>}>
+              </Route>
+            <Route path="/toptrending" element={<PopularMovies url = {`${movie_db_url}top_rated?api_key=${api_key}&page=1`}></PopularMovies>}></Route>
             <Route
               path="/tv-episodes"
               element={<TvEpisodes></TvEpisodes>}
             ></Route>
             <Route path="/login" element={<Login></Login>}></Route>
             <Route path="/signup" element={<SignupForm></SignupForm>}></Route>
-
             <Route
               path="/movie/:id"
               element={<MovieDetailsPage type="movie"></MovieDetailsPage>}
@@ -60,6 +61,10 @@ function App() {
             <Route
               path="/tv/:id"
               element={<MovieDetailsPage type="tv"></MovieDetailsPage>}
+            ></Route>
+            <Route
+              path="/:personId"
+              element={<MovieCastDetailsPage></MovieCastDetailsPage>}
             ></Route>
             <Route path="*" element={<NotFound></NotFound>}></Route>
           </Route>

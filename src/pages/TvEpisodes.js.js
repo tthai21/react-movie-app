@@ -54,7 +54,7 @@ const TvEpisodes = () => {
       <div className="w-full mb-10">
         <h1 className="text-center text-3xl">Tv Episodes</h1>
       </div>
-      <div className=" lg:grid xl:grid lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
+      <div className=" sm:grid lg:grid xl:grid lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
         {!loading &&
           movies?.length > 0 &&
           movies.map((item) => (

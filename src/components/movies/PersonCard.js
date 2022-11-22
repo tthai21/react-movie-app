@@ -5,19 +5,19 @@ import Button from "../button/Button";
 import { withErrorBoundary } from "react-error-boundary";
 import LoadingSkeleton from "./LoadingSkeleton";
 
-const MovieCard = (props) => {
+const PersonCard = (props) => {
   const { title, url, year, rate, id, type } = props;  
   const navigate = useNavigate();
   const navigateHandler = () => {
     navigate(`/${type}/${id}}`);
   };
   return (
-    <div className=" w-full movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-[500px] xl:w-[300px] select-none mb-10">
+    <div className="min-w-[300px] max-w-[300px] lg:w-full flex flex-col rounded-lg p-3 bg-slate-800  text-white h-[500px] xl:w-[300px] select-none mb-10">
       <div className=" w-full h-[300px] object-contain ">
         <img
           src={url}
           alt=""
-          className=" w-full h-[300px]  object-cover rounded-lg mb-5"
+          className=" w-full h-[300px]  object-top rounded-lg mb-5"
         />
       </div>
       <div className="flex flex-cols flex-1">
@@ -26,14 +26,14 @@ const MovieCard = (props) => {
         </h3>
       </div>
       <div className="flex justify-between text-sm opacity-50 mb-10">
-        <span>{new Date(year).getFullYear()}</span>
+        <span>DOB: {year}</span>
         <div className="h-5 flex items-end justify-end">
           <Star className="flex items-end justify-end w-full h-full  mr-1 leading-none "></Star>
           <span className="">{rate}</span>
         </div>
       </div>
       <Button onCLick={navigateHandler} bgColor="primary">
-        Watch Now
+        Add to favorite
       </Button>
     </div>
   );
@@ -48,7 +48,7 @@ function FallbackComponent() {
   );
 }
 
-export default withErrorBoundary(MovieCard, {
+export default withErrorBoundary(PersonCard, {
   FallbackComponent,
 });
 

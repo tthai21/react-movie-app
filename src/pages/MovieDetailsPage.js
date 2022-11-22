@@ -9,8 +9,9 @@ import MovieList from "components/movies/MovieList";
 const MovieDetailsPage = ({ type }) => {
   const { id } = useParams();
   const DetailsUrl = `${tmdb_url}${type}/${id}?api_key=${api_key}`;
-  const { data } = useSWR(DetailsUrl, fetcher);  
+  const { data } = useSWR(DetailsUrl, fetcher);   
   if (!data) return null;
+ 
   return (
     <>
       <div className="page-container">
@@ -62,7 +63,8 @@ const MovieDetailsPage = ({ type }) => {
         </div>
 
         {/* casts */}
-        <div className="flex items-center gap-x-5 justify-center">
+        <div className="flex items-center gap-x-5 justify-center"
+       >
           <CastMovie type={type}></CastMovie>
         </div>
 
