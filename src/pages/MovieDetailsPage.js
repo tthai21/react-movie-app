@@ -43,17 +43,21 @@ const MovieDetailsPage = ({ type }) => {
         </div>
 
         {/* Movie Tag */}
-        <div className="flex items-center gap-x-5 w-full justify-center text-white mb-10">
+       <div className="flex items-center justify-center ">
+
+        <div className="sm:flex grid grid-cols-2 items-center gap-x-8 justify-center text-white mb-10 ">
           {data?.genres.length > 0 &&
             data?.genres.map((item) => (
               <div
-                key={item.id}
-                className="text-lg border border-slate-900 bg-slate-700 rounded-lg px-2"
+              key={item.id}
+              className="flex items-center justify-center text-lg border border-slate-900 bg-slate-700 rounded-lg px-2 mb-4"
               >
                 {item.name}
               </div>
             ))}
         </div>
+            </div>
+           
 
         {/* OverView */}
         <div className="lg:page-container mb-10 lg:w-[600px]">
