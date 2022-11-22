@@ -6,7 +6,6 @@ import { auth } from "../../firebase/firebase-config";
 import { ReactComponent as ReactLogo } from "../../logo/logo.svg";
 import Button from "../button/Button";
 
-// eslint-disable-next-line no-unused-vars
 
 const Header = ({ userInfo }) => {
   const [filter, setFilter] = useState("");
@@ -33,6 +32,7 @@ const Header = ({ userInfo }) => {
     setIsNavOpen(false);
     setOpenUserInfo(false);
   };
+ 
 
   return (
     <>
@@ -178,8 +178,8 @@ const Header = ({ userInfo }) => {
       </div>
 
       {/* Desktop */}
-      <header className=" page-container header flex items-center xl:justify-between gap-x-5 text-white py-10 mb-5 px-5 justify-center">
-        <div className="hidden xl:flex xl:gap-11 font-extrabold xl:text-xl">
+      <header  className=" page-container header flex items-center xl:justify-between gap-x-5 text-white py-10 mb-5 px-5 justify-center">
+        <div className="hidden xl:flex xl:gap-11 font-extrabold xl:text-xl" onClick={()=>setOpenUserInfo(false)}>
           <NavLink
             end
             to="/"

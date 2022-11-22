@@ -79,7 +79,7 @@ const TvEpisodes = () => {
           breakLabel="..."
           nextLabel=">"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
+          pageRangeDisplayed={5}
           pageCount={pageCount}
           previousLabel="<"
           renderOnZeroPageCount={null}
