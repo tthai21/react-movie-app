@@ -4,8 +4,8 @@ import React, { createContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase-config";
 import { ReactComponent as ReactLogo } from "../../logo/logo.svg";
+import Logo2 from "../../logo/logodesktop/logoDesktop.svg";
 import Button from "../button/Button";
-
 
 const Header = ({ userInfo }) => {
   const [filter, setFilter] = useState("");
@@ -32,14 +32,13 @@ const Header = ({ userInfo }) => {
     setIsNavOpen(false);
     setOpenUserInfo(false);
   };
- 
 
   return (
     <>
       {/* Mobile */}
       <div className="flex items-center justify-between border-b border-gray-400 py-8 xl:hidden">
         <ReactLogo
-          className="w-[180px]"
+          className="xl:hidden w-[180px]"
           onClick={() => navigate("/")}
         ></ReactLogo>
         <nav>
@@ -48,9 +47,9 @@ const Header = ({ userInfo }) => {
               className="HAMBURGER-ICON space-y-2"
               onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
             >
-              <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
-              <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
-              <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
+              <span className="block h-0.5 w-8 animate-pulse bg-gray-300"></span>
+              <span className="block h-0.5 w-8 animate-pulse bg-gray-300"></span>
+              <span className="block h-0.5 w-8 animate-pulse bg-gray-300"></span>
             </div>
 
             <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
@@ -178,12 +177,26 @@ const Header = ({ userInfo }) => {
       </div>
 
       {/* Desktop */}
-      <header  className=" page-container header flex items-center xl:justify-between gap-x-5 text-white py-10 mb-5 px-5 justify-center">
-        <div className="hidden xl:flex xl:gap-11 font-extrabold xl:text-xl" onClick={()=>setOpenUserInfo(false)}>
+      <header className=" page-container header flex items-center xl:justify-between gap-x-2 text-white py-10 mb-5 px-4 justify-center ">
+        <div className="flex items-center justify-between  py-8">
+          <img
+            onClick={() => navigate("/")}
+            srcSet={Logo2}
+            alt=""
+            className="w-[150px] hidden xl:block cursor-pointer"
+          />
+        </div>
+
+        <div
+          className="hidden xl:flex xl:gap-11 font-extrabold xl:text-xl "
+          onClick={() => setOpenUserInfo(false)}
+        >
           <NavLink
             end
             to="/"
-            className={({ isActive }) => (isActive ? "text-primary" : "")}
+            className={({ isActive }) =>
+              isActive ? "text-primary" : "hover:text-primary"
+            }
           >
             Home
           </NavLink>
@@ -191,7 +204,7 @@ const Header = ({ userInfo }) => {
           <NavLink
             to="/popular"
             className={({ isActive }) => {
-              return isActive ? "text-primary" : "";
+              return isActive ? "text-primary" : "hover:text-primary";
             }}
           >
             Popular
@@ -199,7 +212,7 @@ const Header = ({ userInfo }) => {
           <NavLink
             to="/toptrending"
             className={({ isActive }) => {
-              return isActive ? "text-primary" : "";
+              return isActive ? "text-primary" : "hover:text-primary";
             }}
           >
             Top Trending
@@ -207,7 +220,7 @@ const Header = ({ userInfo }) => {
           <NavLink
             to="/tv-episodes"
             className={({ isActive }) => {
-              return isActive ? "text-primary" : "";
+              return isActive ? "text-primary" : "hover:text-primary";
             }}
           >
             Tv Episodes
@@ -218,8 +231,11 @@ const Header = ({ userInfo }) => {
           <div className="hidden xl:block xl:relative">
             {userInfo ? (
               <div>
-                <span className="mx-2 cursor-pointer" onClick={handleOpen}>
-                  Welcome {userInfo.email}
+                <span
+                  className="mx-2 cursor-pointer text-lg text-primary"
+                  onClick={handleOpen}
+                >
+                  {userInfo.email}
                 </span>
                 {openUserInfo ? (
                   <ul className="menu absolute right-0 p-2  ">
@@ -239,7 +255,7 @@ const Header = ({ userInfo }) => {
                 <NavLink
                   to="/login"
                   className={({ isActive }) => {
-                    return isActive ? "text-primary" : "";
+                    return isActive ? "text-primary" : "hover:text-primary";
                   }}
                 >
                   Log in
@@ -247,7 +263,7 @@ const Header = ({ userInfo }) => {
                 <NavLink
                   to="/signup"
                   className={({ isActive }) => {
-                    return isActive ? "text-primary" : "";
+                    return isActive ? "text-primary" : "hover:text-primary";
                   }}
                 >
                   Sign up

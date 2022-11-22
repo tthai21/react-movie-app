@@ -13,7 +13,6 @@ const CastMoviePopular = ({ url }) => {
   SwiperCore.use([Autoplay]); 
   const [movies, setMovies] = useState([]);
   const { data, error } = useSWR(url, fetcher);  
-  console.log("🚀 ~ file: CastMoviePopular.js ~ line 16 ~ CastMoviePopular ~ data", data)
   const isLoading = !data && !error;  
   useEffect(() => {
     if (data && data.results) setMovies(data?.results[0]?.known_for

@@ -14,9 +14,9 @@ const MovieCastDetailsPage = () => {
   if(!data) return
   return (
     <>
-      <div className="lg:h-screen lg:page-container sm:mt-[100px]">
-        <div className="lg:flex sm:flex lg:items-start lg:mx-10">
-          <div className="flex justify-center md:justify-start">
+      <div className="lg:page-container sm:mt-[100px] mb-10 block">
+        <div className="lg:flex sm:flex items-start lg:mx-10 justify-center md:items-center ">
+          <div className="flex justify-center md:justify-start ">
           {data && (
             <PersonCard
             key={data.id}

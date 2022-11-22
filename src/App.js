@@ -14,6 +14,7 @@ import { auth } from "./firebase/firebase-config";
 import { movie_db_url } from "config";
 import { api_key } from "config";
 import MovieCastDetailsPage from "pages/MovieCastDetailsPage";
+import Footer from "components/layout/Footer";
 
 
 
@@ -69,6 +70,7 @@ function App() {
             <Route path="*" element={<NotFound></NotFound>}></Route>
           </Route>
         </Routes>
+        <Footer></Footer>
       </Suspense>
     </Fragment>
   );
