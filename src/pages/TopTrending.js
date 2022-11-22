@@ -1,8 +1,8 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import ReactPaginate from "react-paginate";
 import MovieCard from "../components/movies/MovieCard";
-import { api_key, fetcher,   tmdb_api, tmdb_url } from "config";
+import { api_key, fetcher, tmdb_api, tmdb_url } from "config";
 
 const itemsPerPage = 20;
 
@@ -49,12 +49,14 @@ const TopTrending = () => {
   // };
 
   return (
-    <div className="py-10 lg:page-container text-white mx-auto w-full">      
-    {loading && (
-      <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
-    )}
-    <div className="w-full mb-10"><h1 className="text-center text-3xl">Popular Movies</h1></div>
-    <div className=" lg:grid xl:grid lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
+    <div className="py-10 lg:page-container text-white mx-auto w-full">
+      {loading && (
+        <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
+      )}
+      <div className="w-full mb-10">
+        <h1 className="text-center text-3xl">Popular Movies</h1>
+      </div>
+      <div className=" lg:grid xl:grid lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
         {!loading &&
           movies?.length > 0 &&
           movies.map((item) => (
@@ -63,7 +65,10 @@ const TopTrending = () => {
               key={item.id}
               title={item.title}
               year={item.release_date}
-              url={tmdb_api.photoUrl(item.backdrop_path)||tmdb_api.photoUrl(item.poster_path)}
+              url={
+                tmdb_api.photoUrl(item.backdrop_path) ||
+                tmdb_api.photoUrl(item.poster_path)
+              }
               rate={item.vote_average}
               type="movie"
             ></MovieCard>

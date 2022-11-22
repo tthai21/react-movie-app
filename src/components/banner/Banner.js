@@ -1,33 +1,32 @@
-
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
-import { fetcher, tmdb_api } from "../../config";
+import { api_key, fetcher, movie_db_url, tmdb_api } from "../../config";
 import Button from "../button/Button";
-import SwiperCore, {
-  Autoplay,Pagination,Navigation
-} from 'swiper/core';
+import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 
-SwiperCore.use([Autoplay,Pagination,Navigation]);
-
+SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const Banner = () => {
-
-  let moviesUrl = `${tmdb_api.SearchUrl("Avenger",1)}`;
+  let moviesUrl = `${movie_db_url}upcoming?api_key=${api_key}`;
   const { data } = useSWR(moviesUrl, fetcher);
-  const movies = data?.results || [];   
+  const movies = data?.results || [];
+  if(movies.backdrop_path) return
 
-  return (    
+  return (
     <section className="banner lg:h-[800px] sm:h-[600px] h-[250px]  page-container mb-20 overflow-hidden ">
       <Swiper
         grabCursor={true}
-        slidesPerView={"auto"}        
+        slidesPerView={"auto"}
         autoplay={{
-          "delay": 5500,
-          "disableOnInteraction": false
-        }} pagination={{
-          "clickable": true
-        }} navigation={true} className="mySwiper h-full rounded-lg"
+          delay: 5500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        className="mySwiper h-full rounded-lg"
       >
         {movies?.length > 0 &&
           movies.map((movie) => (
@@ -35,7 +34,7 @@ const Banner = () => {
               <BannerItem
                 id={movie.id}
                 movie={movie}
-                url={tmdb_api.photoUrl(movie.backdrop_path)}               
+                url={tmdb_api.photoUrl(movie.backdrop_path)|| tmdb_api.photoUrl(movie.poster_path)}
                 title={movie.title}
               ></BannerItem>
             </SwiperSlide>

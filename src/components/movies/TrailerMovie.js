@@ -7,22 +7,15 @@ import { tmdb_url } from "config";
 const TrailerMovie = ({ type }) => {
   const { id } = useParams();
   const TrailerUrl = `${tmdb_url}${type}/${id}/videos?api_key=${api_key}&language=en-US`;
-
   const { data } = useSWR(TrailerUrl, fetcher);
-
   if (!data) return;
   const { results } = data;
-  if(results=== []) return
-  console.log("🚀 ~ file: TrailerMovie.js ~ line 16 ~ TrailerMovie ~ results", results)
-
+  if (results === []) return;
   let trailer = results.find((item) => item.name === "Official Trailer");
-
   if (!trailer) {
     trailer = results[0];
   }
-
   const link = `https://www.youtube-nocookie.com/embed/${trailer?.key}`;
-
   return (
     <div className="lg:w-[864px] mx-auto aspect-video mb-20">
       {results && (

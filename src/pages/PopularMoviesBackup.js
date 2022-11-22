@@ -1,8 +1,8 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import ReactPaginate from "react-paginate";
 import MovieCard from "../components/movies/MovieCard";
-import { api_key, fetcher,   tmdb_api, tmdb_url } from "config";
+import { api_key, fetcher, tmdb_api, tmdb_url } from "config";
 
 const itemsPerPage = 20;
 
@@ -16,17 +16,14 @@ const PopularMovies = () => {
     `${tmdb_url}/movie/popular?api_key=${api_key}&page=${nextPage}`
   );
 
-
   useEffect(() => {
     setUrl(`${tmdb_url}/movie/popular?api_key=${api_key}&page=${nextPage}`);
   }, [nextPage]);
   const { data, error } = useSWR(url, fetcher);
 
-
-
   useEffect(() => {
     if (!data || !data.total_results) return;
-    setCurrentItems(data);    
+    setCurrentItems(data);
     setPageCount(Math.ceil(data.total_results / itemsPerPage));
   }, [data, itemOffset]);
 
@@ -41,17 +38,18 @@ const PopularMovies = () => {
   useEffect(() => {
     if (currentItems && currentItems.results) setMovies(currentItems.results);
   }, [currentItems]);
-  
+
   if (!currentItems) return;
   const loading = !currentItems && !error;
-       
-      
+
   return (
-    <div className="py-10 page-container text-white">      
+    <div className="py-10 page-container text-white">
       {loading && (
         <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent border-t-4 animate-spin mx-auto"></div>
       )}
-      <div className="w-full mb-10"><h1 className="text-center text-3xl">Popular Movies</h1></div>
+      <div className="w-full mb-10">
+        <h1 className="text-center text-3xl">Popular Movies</h1>
+      </div>
       <div className=" lg:grid lg:grid-cols-4 gap-5 mb-10">
         {!loading &&
           movies?.length > 0 &&

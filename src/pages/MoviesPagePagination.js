@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import ReactPaginate from "react-paginate";
 import MovieCard from "../components/movies/MovieCard";
-import { api_key, fetcher,  search_url, tmdb_api, tmdb_url } from "config";
+import { api_key, fetcher, search_url, tmdb_api, tmdb_url } from "config";
 
 const itemsPerPage = 20;
 
@@ -13,7 +13,7 @@ const MoviesPage = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [nextPage, setNextPage] = useState(1);
   const [url, setUrl] = useState(
-    `${tmdb_api.getMovieList("popular",nextPage)}`
+    `${tmdb_api.getMovieList("popular", nextPage)}`
   );
   const inputRef = useRef();
 

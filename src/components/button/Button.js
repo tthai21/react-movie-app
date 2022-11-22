@@ -2,7 +2,7 @@ import React from "react";
 
 const Button = ({
   onCLick,
-  className="",
+  className = "",
   type = "button",
   bgColor = "primary",
   children,

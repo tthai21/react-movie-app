@@ -4,18 +4,18 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import InputHook from "components/form/InputHook";
-import RadioHook from "components/form/RadioHook";
 import DropdownHook from "components/form/DropdownHook";
 import CheckboxHook from "components/form/CheckboxHook";
 import Button from "components/button/Button";
 import {
   createUserWithEmailAndPassword,
-  // onAuthStateChanged,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
-// import { useState } from "react";
-// import {  useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const DropdownData = [
   {
@@ -60,8 +60,6 @@ const schema = yup.object({
 });
 
 function SignupForm() {
-  // const navigate = useNavigate()
-  // const [userInfo, setUserInfo] = useState("");
   const {
     handleSubmit,
     formState: { errors, isValid, isSubmitting, isSubmitSuccessful },
@@ -73,6 +71,8 @@ function SignupForm() {
     mode: "onchange",
     defaultValues: {
       job: "",
+      gender: "male",
+      term: false,
     },
   });
 
@@ -86,17 +86,18 @@ function SignupForm() {
       gender: "male",
       job: "",
       term: false,
-    });    
+    });
   };
 
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   setUserInfo(currentUser);
-  // });
-  // console.log(userInfo);
-
-  // useEffect(() =>{
-  //   if(userInfo) return navigate('/',{state:{email: userInfo.email}})
-  // },[navigate, userInfo])
+  // check user sign in
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState("");
+  onAuthStateChanged(auth, (currentUser) => {
+    setUserInfo(currentUser);
+  });
+  useEffect(() => {
+    if (userInfo) navigate("/");
+  }, [navigate, userInfo]);
 
   return (
     <form
@@ -161,15 +162,29 @@ function SignupForm() {
       <div className="flex flex-col gap-3 mb-5">
         <label className=" cursor-pointer text-white">Gender</label>
         <div className=" flex items-center gap-5">
-          <RadioHook
+          <input
+            type="radio"
             control={control}
             name="gender"
             value="male"
+            id="male"
             defaultChecked={true}
-          ></RadioHook>
-          <span className="text-white">Male</span>
-          <RadioHook control={control} name="gender" value="female"></RadioHook>
-          <span className="text-white">Female</span>
+            className="cursor-pointer"
+          ></input>
+          <label htmlFor="male" className="text-white cursor-pointer">
+            Male
+          </label>
+          <input
+            type="radio"
+            id="female"
+            control={control}
+            name="gender"
+            value="female"
+            className="cursor-pointer"
+          ></input>
+          <label htmlFor="female" className="text-white cursor-pointer">
+            Female
+          </label>
         </div>
       </div>
       {errors.gender && (
@@ -202,6 +217,7 @@ function SignupForm() {
           text="I accept the terms and conditions"
           name="term"
           className="text-white"
+          value={false}
         ></CheckboxHook>
       </div>
       {errors.term && (
@@ -211,7 +227,7 @@ function SignupForm() {
       {/* Button */}
       <Button
         type="submit"
-        className={`w-full p-5 text-white font-semibold mt-5 rounded-lg ${
+        className={`w-full p-5 text-white font-semibold mt-5 rounded-lg mb-5 ${
           isSubmitting ? "opacity-50" : ""
         }`}
         disabled={isSubmitting}
@@ -221,7 +237,13 @@ function SignupForm() {
         ) : (
           "Submit"
         )}
-      </Button>      
+      </Button>
+      <div className="text-white w-full text-center">
+        <span>Already register? </span>
+        <span className="underline">
+          <Link to="/login">Sign In</Link>
+        </span>
+      </div>
     </form>
   );
 }

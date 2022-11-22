@@ -7,13 +7,17 @@ import MovieCard, { MovieCardSkeleton } from "./MovieCard";
 import { useParams } from "react-router-dom";
 import { api_key } from "config";
 import { tmdb_url } from "config";
+import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
+
+SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const MovieList = ({ type }) => {
-  const {id} = useParams()
-  const listUrl=`${tmdb_url}${type}/${id}/similar?api_key=${api_key}&page=1`  
+  SwiperCore.use([Autoplay]);
+  const { id } = useParams();
+  const listUrl = `${tmdb_url}${type}/${id}/similar?api_key=${api_key}&page=1`;
   const [movies, setMovies] = useState([]);
-  const { data, error } = useSWR(listUrl, fetcher);  
- 
+  const { data, error } = useSWR(listUrl, fetcher);
+
   const isLoading = !data && !error;
 
   useEffect(() => {
@@ -25,37 +29,50 @@ const MovieList = ({ type }) => {
         <>
           <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
             <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>             
+              <MovieCardSkeleton></MovieCardSkeleton>
             </SwiperSlide>
             <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>             
+              <MovieCardSkeleton></MovieCardSkeleton>
             </SwiperSlide>
             <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>             
+              <MovieCardSkeleton></MovieCardSkeleton>
             </SwiperSlide>
             <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>             
+              <MovieCardSkeleton></MovieCardSkeleton>
             </SwiperSlide>
           </Swiper>
         </>
       )}
-      {!isLoading && (<Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
-        {movies.length > 0 &&
-          movies.map((item) => (
-            <SwiperSlide key={item.id}>
-              <MovieCard
-                id={item.id}
-                title={item.title||item.original_name
-                }
-                year={item.release_date || item.first_air_date
-                }
-                url={tmdb_api.photoUrl(item.backdrop_path)}
-                rate={item.vote_average}
-                type={type}
-              ></MovieCard>
-            </SwiperSlide>
-          ))}
-      </Swiper>)}
+      {!isLoading && (
+        <Swiper
+          grabCursor={true}
+          spaceBetween={40}
+          slidesPerView={"auto"}
+          autoplay={{
+            delay: 5500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          className="mySwiper"
+        >
+          {movies.length > 0 &&
+            movies.map((item) => (
+              <SwiperSlide key={item.id}>
+                <MovieCard
+                  id={item.id}
+                  title={item.title || item.original_name}
+                  year={item.release_date || item.first_air_date}
+                  url={tmdb_api.photoUrl(item.backdrop_path)}
+                  rate={item.vote_average}
+                  type={type}
+                ></MovieCard>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      )}
     </div>
   );
 };

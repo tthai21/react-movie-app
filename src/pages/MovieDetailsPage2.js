@@ -16,7 +16,7 @@ const MovieDetailsPage2 = () => {
       <div className="h-screen page-container">
         <div className="flex items-start mx-10">
           {data && (
-            <MovieCard            
+            <MovieCard
               key={data.id}
               url={photoUrl.concat(data.poster_path)}
               title={data.title}

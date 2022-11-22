@@ -3,15 +3,13 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import CastMovie from "components/movies/CastMovie";
 import TrailerMovie from "components/movies/TrailerMovie";
-import { api_key, fetcher,  tmdb_api, tmdb_url } from "config";
+import { api_key, fetcher, tmdb_api, tmdb_url } from "config";
 import MovieList from "components/movies/MovieList";
 
-const MovieDetailsPage = ({type}) => {
+const MovieDetailsPage = ({ type }) => {
   const { id } = useParams();
-  const DetailsUrl = `${tmdb_url}${type}/${id}?api_key=${api_key}`; 
+  const DetailsUrl = `${tmdb_url}${type}/${id}?api_key=${api_key}`;
   const { data } = useSWR(DetailsUrl, fetcher);
-  console.log("🚀 ~ file: MovieDetailsPage.js ~ line 13 ~ MovieDetailsPage ~ data", data)
-  
   if (!data) return null;
   return (
     <>
@@ -65,20 +63,18 @@ const MovieDetailsPage = ({type}) => {
 
         {/* casts */}
         <div className="flex items-center gap-x-5 justify-center">
-          <CastMovie  type={type}></CastMovie>
+          <CastMovie type={type}></CastMovie>
         </div>
 
         {/* Trailer */}
         <div className="lg:w-full">
-          <TrailerMovie  type={type}></TrailerMovie>
+          <TrailerMovie type={type}></TrailerMovie>
         </div>
 
         {/* Similar Movies */}
         <div className="mb-10">
           <h2 className="text-white text-2xl mb-10 pl-2">Similar Movies</h2>
-          <MovieList
-            type={type}
-          ></MovieList>
+          <MovieList type={type}></MovieList>
         </div>
       </div>
     </>

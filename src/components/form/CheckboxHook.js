@@ -10,14 +10,16 @@ const CheckboxHook = ({ control, text, ...props }) => {
         {...field}
         {...props}
         id={props.name}
-        className="bg-white w-5 h-5"
+        className="bg-white w-5 h-5 cursor-pointer"
         checked={field.value}
         value={props.value}
-      ></input>      
-        <label htmlFor={props.name} className={`cursor-pointer ${props.className}`}>
-          {text}
-        </label>
-     
+      ></input>
+      <label
+        htmlFor={props.name}
+        className={`cursor-pointer ${props.className}`}
+      >
+        {text}
+      </label>
     </label>
   );
 };

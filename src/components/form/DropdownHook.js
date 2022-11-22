@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useWatch } from "react-hook-form";
 import useClickOutside from "../../hook/useClickOutside";
 
-
 const DropdownHook = ({
   control,
   setValue,
@@ -12,11 +11,11 @@ const DropdownHook = ({
 }) => {
   const { show, setShow, nodeRef } = useClickOutside();
   const [label, setLabel] = useState(dropdownLabel);
-useEffect(()=>{
-  if(dropdownLabel){
-    setLabel(dropdownLabel)
-  }
-},[dropdownLabel])
+  useEffect(() => {
+    if (dropdownLabel) {
+      setLabel(dropdownLabel);
+    }
+  }, [dropdownLabel]);
 
   useWatch({
     control,

@@ -1,14 +1,14 @@
-import { signOut } from "firebase/auth";
+import Button from "components/button/Button";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase-config";
 import useDebounce from "hook/useDebounce";
 import React, { createContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase/firebase-config";
 import { ReactComponent as ReactLogo } from "../../logo/logo.svg";
-import Button from "../button/Button";
 
 // eslint-disable-next-line no-unused-vars
 
-const Header = ({ userInfo }) => {
+const HeaderSignIn = () => {
   const [filter, setFilter] = useState("");
   const navigate = useNavigate();
   const searchChangeHandler = (e) => {
@@ -23,27 +23,29 @@ const Header = ({ userInfo }) => {
   };
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const [openUserInfo, setOpenUserInfo] = useState(false);
+  const [userInfo, setUserInfo] = useState("");
+  console.log(
+    "🚀 ~ file: Header.js ~ line 33 ~ Header ~ userInfo",
+    userInfo?.email
+  );
+  onAuthStateChanged(auth, (currentUser) => {
+    setUserInfo(currentUser);
+  });
 
-  const handleOpen = () => {
-    setOpenUserInfo(!openUserInfo);
-  };
   const logOutHandler = () => {
     signOut(auth);
-    setIsNavOpen(false);
-    setOpenUserInfo(false);
   };
 
   return (
     <>
       {/* Mobile */}
-      <div className="flex items-center justify-between border-b border-gray-400 py-8 xl:hidden">
+      <div className="flex items-center justify-between border-b border-gray-400 py-8 lg:hidden">
         <ReactLogo
           className="w-[180px]"
           onClick={() => navigate("/")}
         ></ReactLogo>
         <nav>
-          <section className="MOBILE-MENU flex xl:hidden">
+          <section className="MOBILE-MENU flex lg:hidden">
             <div
               className="HAMBURGER-ICON space-y-2"
               onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
@@ -72,9 +74,6 @@ const Header = ({ userInfo }) => {
                 </svg>
               </div>
               <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-center min-h-[250px] text-white text-lg">
-                {userInfo && (
-                  <span className="mx-2">Welcome {userInfo.email}</span>
-                )}
                 <li className="border-b border-gray-400 my-8 uppercase">
                   <NavLink
                     end
@@ -120,38 +119,9 @@ const Header = ({ userInfo }) => {
                     Tv Episodes
                   </NavLink>
                 </li>
-                {/* Account info */}
-
-                {userInfo ? (
-                  <div>
-                    <Button onClick={logOutHandler}>Log out</Button>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center text-white text-lg">
-                    <div className="border-b border-gray-400 my-8 uppercase">
-                      <NavLink
-                        onClick={() => setIsNavOpen(false)}
-                        to="/login"
-                        className={({ isActive }) => {
-                          return isActive ? "text-primary" : "";
-                        }}
-                      >
-                        Log in
-                      </NavLink>
-                    </div>
-                    <div className="border-b border-gray-400 my-8 uppercase">
-                      <NavLink
-                        onClick={() => setIsNavOpen(false)}
-                        to="/signup"
-                        className={({ isActive }) => {
-                          return isActive ? "text-primary" : "";
-                        }}
-                      >
-                        Sign up
-                      </NavLink>
-                    </div>
-                  </div>
-                )}
+                <li className="">
+                  <Button onCLick={logOutHandler}>Log Out</Button>
+                </li>
               </ul>
             </div>
           </section>
@@ -178,8 +148,8 @@ const Header = ({ userInfo }) => {
       </div>
 
       {/* Desktop */}
-      <header className=" page-container header flex items-center xl:justify-between gap-x-5 text-white py-10 mb-5 px-5 justify-center">
-        <div className="hidden xl:flex xl:gap-11 font-extrabold xl:text-xl">
+      <header className=" page-container header flex items-center lg:justify-between gap-x-5 text-white py-10 mb-5 px-5 justify-center">
+        <div className="hidden lg:flex lg:gap-11 font-extrabold lg:text-xl">
           <NavLink
             end
             to="/"
@@ -213,48 +183,34 @@ const Header = ({ userInfo }) => {
             Tv Episodes
           </NavLink>
         </div>
-        <div className=" xl:flex xl:items-center xl:justify-between lg:gap-x-5 ">
-          {/* UserInfo */}
-          <div className="hidden xl:block xl:relative">
-            {userInfo ? (
-              <div>
-                <span className="mx-2 cursor-pointer" onClick={handleOpen}>
-                  Welcome {userInfo.email}
-                </span>
-                {openUserInfo ? (
-                  <ul className="menu absolute right-0 p-2  ">
-                    <li className="menu-item">
-                      <button>Account info</button>
-                    </li>
-                    <li className="menu-item " onClick={logOutHandler}>
-                      <button className="text-primary font-bold">
-                        Log out
-                      </button>
-                    </li>
-                  </ul>
-                ) : null}
-              </div>
-            ) : (
-              <div className="hidden lg:flex lg:gap-x-5">
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) => {
-                    return isActive ? "text-primary" : "";
-                  }}
-                >
-                  Log in
-                </NavLink>
-                <NavLink
-                  to="/signup"
-                  className={({ isActive }) => {
-                    return isActive ? "text-primary" : "";
-                  }}
-                >
-                  Sign up
-                </NavLink>
-              </div>
-            )}
-          </div>
+        <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-5 ">
+          {/* sign in */}
+
+          {userInfo ? (
+            <div>
+              <span className="mx-2">Welcome {userInfo.email}</span>
+              <Button onClick={logOutHandler}>Log out</Button>
+            </div>
+          ) : (
+            <div className="hidden lg:flex lg:gap-x-5">
+              <NavLink
+                to="/login"
+                className={({ isActive }) => {
+                  return isActive ? "text-primary" : "";
+                }}
+              >
+                Log in
+              </NavLink>
+              <NavLink
+                to="/signup"
+                className={({ isActive }) => {
+                  return isActive ? "text-primary" : "";
+                }}
+              >
+                Sign up
+              </NavLink>
+            </div>
+          )}
 
           {/* Search-box */}
           <div className="page-container">
@@ -296,4 +252,4 @@ const Header = ({ userInfo }) => {
 };
 
 export const Context = createContext();
-export default Header;
+export default HeaderSignIn;
