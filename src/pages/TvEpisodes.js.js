@@ -32,6 +32,7 @@ const TvEpisodes = () => {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
+    window.scrollTo(0, 0)
     const newOffset = (event.selected * itemsPerPage) % data.total_results;
     setItemOffset(newOffset);
     setNextPage(event.selected + 1);
