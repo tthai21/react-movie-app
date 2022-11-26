@@ -8,6 +8,7 @@ import InputHook from "../components/form/InputHook";
 import { Link,useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CheckboxHook from "../components/form/CheckboxHook";
+import InputPasswordToggle from "components/form/InputPasswordToggle";
 
 
 const schema = yup.object({
@@ -42,6 +43,7 @@ const Login = () => {
 
 
   const submitHandler = async(values) => {  
+    console.log("🚀 ~ file: Login.js ~ line 46 ~ submitHandler ~ values", values)
     if(!isValid) return
     await signInWithEmailAndPassword(auth,values.email, values.password)
     reset({
@@ -58,6 +60,7 @@ const Login = () => {
   useEffect(() =>{
     if(userInfo)  navigate('/')
   },[navigate, userInfo])
+
   return (
     <div className="page-container lg:w-screen  h-[600px] flex items-center justify-center ">
       <form
@@ -83,13 +86,7 @@ const Login = () => {
         <label htmlFor="password" className="text-lg cursor-pointer text-white">
           Password
         </label>
-        <InputHook
-          name="password"
-          id="password"
-          placeholder="Enter your password"
-          control={control}
-          type="password"
-        />
+        <InputPasswordToggle control={control}></InputPasswordToggle>
         
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>

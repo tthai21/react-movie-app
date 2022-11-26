@@ -9,6 +9,7 @@ import MovieList from "components/movies/MovieList";
 const MovieDetailsPage = ({ type }) => {
   const { id } = useParams();
   const DetailsUrl = `${tmdb_url}${type}/${id}?api_key=${api_key}`;
+
   const { data } = useSWR(DetailsUrl, fetcher);   
   if (!data) return null;
  

@@ -1,4 +1,4 @@
-import { Fragment, lazy, Suspense, useState } from "react";
+import { Fragment, lazy, Suspense } from "react";
 import Banner from "./components/banner/Banner";
 import "swiper/scss";
 import { Route, Routes } from "react-router-dom";
@@ -9,13 +9,11 @@ import Login from "pages/Login";
 import SignupForm from "pages/Signup";
 import TvEpisodes from "pages/TvEpisodes.js";
 import SwiperCore, { Autoplay } from "swiper";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebase-config";
 import { movie_db_url } from "config";
 import { api_key } from "config";
 import MovieCastDetailsPage from "pages/MovieCastDetailsPage";
 import Footer from "components/layout/Footer";
-
+import { useAuth } from "./contexts/auth-context";
 
 
 // Dynamic import
@@ -24,10 +22,9 @@ const SearchPage = lazy(() => import("./pages/SearchPage"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 
 function App() {
-  const [userInfo, setUserInfo] = useState(""); 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUserInfo(currentUser);
-  });
+  const {userInfo} = useAuth() 
+      console.log("🚀 ~ file: App.js ~ line 27 ~ App ~ userInfo", userInfo?.email)
+ 
   SwiperCore.use([Autoplay]);
   return (
     <Fragment>

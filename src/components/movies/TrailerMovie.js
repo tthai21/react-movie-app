@@ -7,7 +7,7 @@ import { tmdb_url } from "config";
 const TrailerMovie = ({ type }) => {
   const { id } = useParams();
   const TrailerUrl = `${tmdb_url}${type}/${id}/videos?api_key=${api_key}&language=en-US`;
-  const { data } = useSWR(TrailerUrl, fetcher);
+  const { data } = useSWR(TrailerUrl, fetcher); 
   if (!data) return;
   const { results } = data;
   if (results === []) return;

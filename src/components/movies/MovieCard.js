@@ -6,6 +6,7 @@ import { withErrorBoundary } from "react-error-boundary";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 const MovieCard = (props) => {
+  
   const { title, url, year, rate, id, type } = props;  
   const navigate = useNavigate();
   const navigateHandler = () => {

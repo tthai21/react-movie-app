@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import InputPasswordToggle from "components/form/InputPasswordToggle";
 
 const DropdownData = [
   {
@@ -99,6 +100,7 @@ function SignupForm() {
     if (userInfo) navigate("/");
   }, [navigate, userInfo]);
 
+
   return (
     <form
       onSubmit={handleSubmit(onSubmitHandler)}
@@ -146,13 +148,7 @@ function SignupForm() {
         <label htmlFor="password" className=" cursor-pointer text-white">
           Password
         </label>
-        <InputHook
-          name="password"
-          id="password"
-          placeholder="Enter your password"
-          control={control}
-          type="password"
-        />
+      <InputPasswordToggle control={control}></InputPasswordToggle>
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}

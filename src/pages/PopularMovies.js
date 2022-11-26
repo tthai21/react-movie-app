@@ -28,7 +28,7 @@ const PopularMovies = ({ url }) => {
         {!loading &&
           movies?.length > 0 &&
           movies.map((item) => (
-            <MovieCard
+            <MovieCard            
               id={item.id}
               key={item.id}
               title={item.title}
