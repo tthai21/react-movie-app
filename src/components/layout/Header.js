@@ -72,7 +72,9 @@ const Header = ({ userInfo }) => {
               </div>
               <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-center min-h-[250px] text-white text-lg">
                 {userInfo && (
-                  <span className="mx-2">Welcome {userInfo.email}</span>
+                  <>
+                    <li className="mx-2 text-primary">Welcome {userInfo.email}</li>
+                  </>
                 )}
                 <li className="border-b border-gray-400 my-8 uppercase">
                   <NavLink
@@ -120,7 +122,22 @@ const Header = ({ userInfo }) => {
                   </NavLink>
                 </li>
                 {/* Account info */}
-
+                {userInfo && (
+                  <>
+                    <li className="border-b border-gray-400 my-8 uppercase">
+                      <NavLink
+                        end
+                        onClick={() => setIsNavOpen(false)}
+                        to="/favorite"
+                        className={({ isActive }) =>
+                          isActive ? "text-primary" : ""
+                        }
+                      >
+                        Favorite Movies
+                      </NavLink>
+                    </li>
+                  </>
+                )}
                 {userInfo ? (
                   <div>
                     <Button onClick={logOutHandler}>Log out</Button>
@@ -241,6 +258,16 @@ const Header = ({ userInfo }) => {
                   <ul className="menu absolute right-0 p-2  ">
                     <li className="menu-item">
                       <button>Account info</button>
+                    </li>
+                    <li className="menu-item">
+                      <button
+                        onClick={() => {
+                          handleOpen();
+                          navigate("/favorite");
+                        }}
+                      >
+                        Favorite
+                      </button>
                     </li>
                     <li className="menu-item " onClick={logOutHandler}>
                       <button className="text-primary font-bold">
