@@ -4,13 +4,54 @@ import { ReactComponent as Star } from "../../components/photo/star-7207.svg";
 import Button from "../button/Button";
 import { withErrorBoundary } from "react-error-boundary";
 import LoadingSkeleton from "./LoadingSkeleton";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
+import {  db } from "../../firebase/firebase-config";
+import { useAuth } from "contexts/auth-context";
+
 
 const MovieCard = (props) => {
-  
-  const { title, url, year, rate, id, type } = props;  
+  const { title, url, year, rate, id, type, path, isFavorite, docId } = props;
   const navigate = useNavigate();
   const navigateHandler = () => {
     navigate(`/${type}/${id}}`);
+  };
+
+  const { userInfo, setFavoriteMovie, setFavoriteTv, favoriteMovie,favoriteTv } = useAuth();
+  const updateFavoriteMovie = [...favoriteMovie]
+  const updateFavoriteTv = [...favoriteTv]
+
+
+  const userRef = collection(
+    db,
+    "user",
+    String(userInfo?.email),
+    `favorite_${type}`
+  );
+
+  const addFavoriteHandler = async () => {
+    await addDoc(userRef, {
+      id,
+      title,
+      path,
+      rate,
+      year: `${new Date(year).getFullYear()}`,
+      isFavorite: true,
+    });
+  };
+
+  // Delete Doc
+  const deleteRef = doc(
+    db,
+    "user",
+    String(userInfo?.email),
+    `favorite_${type}`,
+    String(docId)
+  );
+  const removeFavoriteHandler = async () => {
+    await deleteDoc(deleteRef);
+    setFavoriteMovie(()=>updateFavoriteMovie.filter((movie)=>movie.docId !== docId))
+    setFavoriteTv(()=>updateFavoriteTv.filter((tv)=>tv.docId !== docId))
+
   };
   return (
     <div className=" w-full movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-[500px] xl:w-[300px] select-none mb-10">
@@ -33,9 +74,20 @@ const MovieCard = (props) => {
           <span className="">{rate}</span>
         </div>
       </div>
-      <Button onCLick={navigateHandler} bgColor="primary">
-        Watch Now
-      </Button>
+      <div className="flex gap-x-2 justify-around">
+        <Button onCLick={navigateHandler} bgColor="primary">
+          Watch Now
+        </Button>
+        {isFavorite ? (
+          <Button bg-color="primary" onCLick={removeFavoriteHandler}>
+            Remove
+          </Button>
+        ) : (
+          <Button bg-color="primary" onCLick={addFavoriteHandler}>
+            Watch Later
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

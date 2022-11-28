@@ -68,6 +68,7 @@ const TvEpisodes = () => {
                 tmdb_api.photoUrl(item.poster_path)
               }
               rate={item.vote_average}
+              path={item.backdrop_path}
               type="tv"
             ></MovieCard>
           ))}

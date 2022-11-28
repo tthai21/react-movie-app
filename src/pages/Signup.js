@@ -11,12 +11,13 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "../firebase/firebase-config";
+import { auth, db } from "../firebase/firebase-config";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import InputPasswordToggle from "components/form/InputPasswordToggle";
+import {  doc, setDoc } from "firebase/firestore";
 
 const DropdownData = [
   {
@@ -77,9 +78,17 @@ function SignupForm() {
     },
   });
 
+
+  
   const onSubmitHandler = async (values) => {
     if (!isValid) return;
     await createUserWithEmailAndPassword(auth, values.email, values.password);
+
+    await setDoc(doc(db, "user", values.email), {
+      favorite_movie:[],
+      favorite_tv: [], 
+    });    
+
     reset({
       username: "",
       email: "",

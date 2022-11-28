@@ -14,6 +14,7 @@ import { api_key } from "config";
 import MovieCastDetailsPage from "pages/MovieCastDetailsPage";
 import Footer from "components/layout/Footer";
 import { useAuth } from "./contexts/auth-context";
+import Favorite from "pages/Favorite";
 
 
 // Dynamic import
@@ -23,8 +24,6 @@ const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 
 function App() {
   const {userInfo} = useAuth() 
-      console.log("🚀 ~ file: App.js ~ line 27 ~ App ~ userInfo", userInfo?.email)
- 
   SwiperCore.use([Autoplay]);
   return (
     <Fragment>
@@ -44,6 +43,10 @@ function App() {
             <Route
               path="/popular"
               element={<PopularMovies url = {`${movie_db_url}popular?api_key=${api_key}&page=1`}></PopularMovies>}>
+              </Route>
+            <Route
+              path="/favorite"
+              element={<Favorite ></Favorite>}>
               </Route>
             <Route path="/toptrending" element={<PopularMovies url = {`${movie_db_url}top_rated?api_key=${api_key}&page=1`}></PopularMovies>}></Route>
             <Route

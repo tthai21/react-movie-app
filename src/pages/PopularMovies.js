@@ -47,7 +47,7 @@ const PopularMovies = ({ url }) => {
         <Button
           onClick={() => (isReachingEnd ? {} : setSize(size + 1))}
           disabled={isReachingEnd}
-          className={`${isReachingEnd ? "bg-slate-300" : ""}`}
+          className={`w-[200px] ${isReachingEnd ? "bg-slate-300" : ""}`}
         >
           Load more
         </Button>

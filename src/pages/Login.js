@@ -42,8 +42,7 @@ const Login = () => {
 
 
 
-  const submitHandler = async(values) => {  
-    console.log("🚀 ~ file: Login.js ~ line 46 ~ submitHandler ~ values", values)
+  const submitHandler = async(values) => {   
     if(!isValid) return
     await signInWithEmailAndPassword(auth,values.email, values.password)
     reset({
@@ -60,6 +59,9 @@ const Login = () => {
   useEffect(() =>{
     if(userInfo)  navigate('/')
   },[navigate, userInfo])
+
+
+
 
   return (
     <div className="page-container lg:w-screen  h-[600px] flex items-center justify-center ">
