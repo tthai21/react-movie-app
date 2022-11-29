@@ -4,54 +4,64 @@ import { ReactComponent as Star } from "../../components/photo/star-7207.svg";
 import Button from "../button/Button";
 import { withErrorBoundary } from "react-error-boundary";
 import LoadingSkeleton from "./LoadingSkeleton";
-import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
-import {  db } from "../../firebase/firebase-config";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase-config";
 import { useAuth } from "contexts/auth-context";
 
-
 const MovieCard = (props) => {
-  const { title, url, year, rate, id, type, path, isFavorite, docId } = props;
+  const { title, url, year, rate, id, type, path, isFavorite } = props;
   const navigate = useNavigate();
   const navigateHandler = () => {
     navigate(`/${type}/${id}}`);
   };
 
-  const { userInfo, setFavoriteMovie, setFavoriteTv, favoriteMovie,favoriteTv } = useAuth();
-  const updateFavoriteMovie = [...favoriteMovie]
-  const updateFavoriteTv = [...favoriteTv]
+  const {
+    userInfo,
+    favoriteMovie,
+    favoriteTv,
+    setFavoriteMovie,
+    setFavoriteTv,
+  } = useAuth();
 
-
-  const userRef = collection(
-    db,
-    "user",
-    String(userInfo?.email),
-    `favorite_${type}`
-  );
-
+  const movieCurrent = {
+    id,
+    title,
+    path,
+    rate,
+    year: `${new Date(year).getFullYear()}`,
+    isFavorite: true,
+  };
   const addFavoriteHandler = async () => {
-    await addDoc(userRef, {
-      id,
-      title,
-      path,
-      rate,
-      year: `${new Date(year).getFullYear()}`,
-      isFavorite: true,
+    const checkExitingMovie = favoriteMovie.find(
+      (item) => item.id === movieCurrent.id
+    );
+    const checkExitingTv = favoriteTv.find(
+      (item) => item.id === movieCurrent.id
+    );
+    if (checkExitingMovie || checkExitingTv) return;
+    if (type === "movie") {
+      favoriteMovie.push(movieCurrent);
+      setFavoriteMovie(favoriteMovie);
+    } else {
+      favoriteTv.push(movieCurrent);
+      setFavoriteTv(favoriteTv);
+    }
+    await setDoc(doc(db, "user", userInfo?.email), {
+      favorite_movie: favoriteMovie,
+      favorite_tv: favoriteTv,
     });
   };
 
-  // Delete Doc
-  const deleteRef = doc(
-    db,
-    "user",
-    String(userInfo?.email),
-    `favorite_${type}`,
-    String(docId)
-  );
   const removeFavoriteHandler = async () => {
-    await deleteDoc(deleteRef);
-    setFavoriteMovie(()=>updateFavoriteMovie.filter((movie)=>movie.docId !== docId))
-    setFavoriteTv(()=>updateFavoriteTv.filter((tv)=>tv.docId !== docId))
-
+    if (type === "movie") {
+      setFavoriteMovie(favoriteMovie.filter((movie) => movie.id !== id));
+    } else if (type === "tv") {
+      setFavoriteTv(favoriteTv.filter((movie) => movie.id !== id));
+    }
+    await setDoc(doc(db, "user", userInfo?.email), {
+      favorite_movie: favoriteMovie.filter((movie) => movie.id !== id),
+      favorite_tv: favoriteTv.filter((movie) => movie.id !== id),
+    });
   };
   return (
     <div className=" w-full movie-card flex flex-col rounded-lg p-3 bg-slate-800  text-white h-[500px] xl:w-[300px] select-none mb-10">

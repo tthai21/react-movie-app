@@ -20,7 +20,7 @@ const HomePageList = ({ url }) => {
   }, [data]);
 
   return (
-    <div className="movies-list text-white mb20">
+    <div className="movies-list text-white mb20 w-full">
       {isLoading && (
         <>
           <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>

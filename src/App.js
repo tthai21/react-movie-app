@@ -13,7 +13,6 @@ import { movie_db_url } from "config";
 import { api_key } from "config";
 import MovieCastDetailsPage from "pages/MovieCastDetailsPage";
 import Footer from "components/layout/Footer";
-import { useAuth } from "./contexts/auth-context";
 import Favorite from "pages/Favorite";
 
 
@@ -23,13 +22,13 @@ const SearchPage = lazy(() => import("./pages/SearchPage"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
 
 function App() {
-  const {userInfo} = useAuth() 
+  
   SwiperCore.use([Autoplay]);
   return (
     <Fragment>
       <Suspense fallback={<></>}>
         <Routes>
-          <Route element={<Main userInfo={userInfo}></Main>}>
+          <Route element={<Main></Main>}>
             <Route
               path="/"
               element={

@@ -2,10 +2,10 @@ import React, { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 
-const Main = ({ userInfo }) => {
+const Main = () => {
   return (
     <Fragment>
-      <Header userInfo={userInfo}></Header>
+      <Header></Header>
       <Outlet></Outlet>
     </Fragment>
   );

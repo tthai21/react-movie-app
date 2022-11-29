@@ -2,62 +2,18 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import {  tmdb_api } from "config";
-import MovieCard, { MovieCardSkeleton } from "./MovieCard";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
+import MovieCard from "./MovieCard";
 
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const FavoriteSlice = ({ data, type }) => {
   SwiperCore.use([Autoplay]);
-
   
-
-
-  // useEffect(() => {
-  //   let favorite = [];
-  //   const TestUpdateFavorite = async () => {
-  //     const userRef = collection(
-  //       db,
-  //       "user",
-  //       String(userEmail),
-  //       `favorite_${type}`
-  //     );
-  //     const res = await getDocs(userRef);
-  //     res.docs.forEach((doc) => {
-  //       favorite.push({
-  //         docId: doc.id,
-  //         ...doc.data(),
-  //       });
-  //       setData(favorite);
-  //     });
-  //   };
-  //   TestUpdateFavorite();
-  // }, [type, userEmail]);
-  
-
-  const isLoading = !data 
   return (
-    <div className="movies-list text-white mb20">
-      {isLoading && (
-        <>
-          <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCardSkeleton></MovieCardSkeleton>
-            </SwiperSlide>
-          </Swiper>
-        </>
-      )}
-      {!isLoading && (
+    <div className="movies-list text-white mb20">     
+     
         <Swiper
           grabCursor={true}
           spaceBetween={40}
@@ -72,7 +28,7 @@ const FavoriteSlice = ({ data, type }) => {
           navigation={true}
           className="mySwiper"
         >
-          {data.length > 0 &&
+          {data?.length > 0 &&
             data.map((item) => (
               <SwiperSlide key={item.id}>
                 <MovieCard
@@ -92,7 +48,7 @@ const FavoriteSlice = ({ data, type }) => {
               </SwiperSlide>
             ))}
         </Swiper>
-      )}
+     
     </div>
   );
 };

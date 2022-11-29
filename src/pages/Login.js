@@ -1,14 +1,15 @@
 import Button from "components/button/Button";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import {  signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import InputHook from "../components/form/InputHook";
 import { Link,useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CheckboxHook from "../components/form/CheckboxHook";
 import InputPasswordToggle from "components/form/InputPasswordToggle";
+import { useAuth } from "contexts/auth-context";
 
 
 const schema = yup.object({
@@ -52,10 +53,7 @@ const Login = () => {
     navigate("/")
   };
   const navigate = useNavigate()
-  const [userInfo, setUserInfo] = useState("");
-  onAuthStateChanged(auth, (currentUser) => {
-    setUserInfo(currentUser);
-  });
+const {userInfo} = useAuth()
   useEffect(() =>{
     if(userInfo)  navigate('/')
   },[navigate, userInfo])
@@ -64,7 +62,7 @@ const Login = () => {
 
 
   return (
-    <div className="page-container lg:w-screen  h-[600px] flex items-center justify-center ">
+    <div className="lg:w-screen  h-[600px] flex items-center justify-center my-10 mx-auto ">
       <form
         onSubmit={handleSubmit(submitHandler)}
         className="border border-primary rounded-lg p-5 block w-[500px]"

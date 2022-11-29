@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase/firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 const { createContext, useContext } = require("react");
 
@@ -10,54 +10,37 @@ const AuthContext = createContext();
 function AuthProvider(props) {
   const [userInfo, setUserInfo] = useState(null);
   const [favoriteMovie, setFavoriteMovie] = useState([]);
-  const [favoriteTv, setFavoriteTv] = useState([]);
+  const [favoriteTv, setFavoriteTv] = useState([]); 
   onAuthStateChanged(auth, (currentUser) => {
     setUserInfo(currentUser);
-  }); 
-  const userEmail = userInfo?.email
+  });
+  const userEmail = userInfo?.email;
   useEffect(() => {
-    let favoriteMovie = [];
-    const TestUpdateFavorite = async () => {            
-      const userRef = collection(
-        db,
-        "user",
-        String(userEmail),
-        `favorite_movie`
-      );
-      const res = await getDocs(userRef);
-      res.docs.forEach((doc) => {
-        favoriteMovie.push({
-          docId: doc.id,
-          ...doc.data(),
-        });
-        setFavoriteMovie(favoriteMovie);
-      });
-    };
-    TestUpdateFavorite();
-  }, [userEmail]);
+    const docRef = doc(db, "user", String(userEmail));
 
-  useEffect(() => {
-    let favoriteTv = [];
-    const TestUpdateFavorite = async () => {            
-      const userRef = collection(
-        db,
-        "user",
-        String(userEmail),
-        `favorite_tv`
-      );
-      const res = await getDocs(userRef);
-      res.docs.forEach((doc) => {
-        favoriteTv.push({
-          docId: doc.id,
-          ...doc.data(),
-        });
-        setFavoriteTv(favoriteTv);
-      });
+    const TestUpdateFavoriteMovie = async () => {
+      const res = await getDoc(docRef);
+      const array = res?.data()?.favorite_movie;
+      setFavoriteMovie(array);
     };
-    TestUpdateFavorite();
-  }, [userEmail]);
-  
-  const value = { userInfo, favoriteMovie,favoriteTv,setFavoriteMovie ,setFavoriteTv };
+    const TestUpdateFavoriteTv = async () => {
+      const res = await getDoc(docRef);
+      const array = res?.data()?.favorite_tv;
+      setFavoriteTv(array);
+    };
+    TestUpdateFavoriteMovie();
+    TestUpdateFavoriteTv();
+  }, [setFavoriteMovie, setFavoriteTv, userEmail]);
+
+  const value = {
+    userInfo,
+    favoriteMovie,
+    favoriteTv,
+    setFavoriteMovie,
+    setFavoriteTv,
+    setUserInfo,
+  };
+
   return <AuthContext.Provider value={value} {...props}></AuthContext.Provider>;
 }
 

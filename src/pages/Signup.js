@@ -7,17 +7,15 @@ import InputHook from "components/form/InputHook";
 import DropdownHook from "components/form/DropdownHook";
 import CheckboxHook from "components/form/CheckboxHook";
 import Button from "components/button/Button";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase/firebase-config";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import InputPasswordToggle from "components/form/InputPasswordToggle";
-import {  doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
+import { useAuth } from "contexts/auth-context";
 
 const DropdownData = [
   {
@@ -78,16 +76,14 @@ function SignupForm() {
     },
   });
 
-
-  
   const onSubmitHandler = async (values) => {
     if (!isValid) return;
     await createUserWithEmailAndPassword(auth, values.email, values.password);
 
     await setDoc(doc(db, "user", values.email), {
-      favorite_movie:[],
-      favorite_tv: [], 
-    });    
+      favorite_movie: [],
+      favorite_tv: [],
+    });
 
     reset({
       username: "",
@@ -101,14 +97,10 @@ function SignupForm() {
 
   // check user sign in
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState("");
-  onAuthStateChanged(auth, (currentUser) => {
-    setUserInfo(currentUser);
-  });
+  const { userInfo } = useAuth();
   useEffect(() => {
     if (userInfo) navigate("/");
   }, [navigate, userInfo]);
-
 
   return (
     <form
@@ -157,7 +149,7 @@ function SignupForm() {
         <label htmlFor="password" className=" cursor-pointer text-white">
           Password
         </label>
-      <InputPasswordToggle control={control}></InputPasswordToggle>
+        <InputPasswordToggle control={control}></InputPasswordToggle>
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
         )}
