@@ -1,15 +1,41 @@
 import { useAuth } from "contexts/auth-context";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import useDebounce from "hook/useDebounce";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase/firebase-config";
+import { auth, db } from "../../firebase/firebase-config";
 import { ReactComponent as ReactLogo } from "../../logo/logo.svg";
 import Logo2 from "../../logo/logodesktop/logoDesktop.svg";
 import Button from "../button/Button";
 
 const Header = () => {
-  const { userInfo } = useAuth();
+  const { userInfo,
+    setFavoriteMovie,
+    setFavoriteTv,
+    setUserInfo,
+     } = useAuth();
+  onAuthStateChanged(auth, (currentUser) => {
+    setUserInfo(currentUser);
+  });
+  const userEmail = userInfo?.email;
+  useEffect(() => {
+    const docRef = doc(db, "user", String(userEmail));
+
+    const TestUpdateFavoriteMovie = async () => {
+      const res = await getDoc(docRef);
+      const array = res?.data()?.favorite_movie;
+      setFavoriteMovie(array);
+    };
+    const TestUpdateFavoriteTv = async () => {
+      const res = await getDoc(docRef);
+      const array = res?.data()?.favorite_tv;
+      setFavoriteTv(array);
+    };
+    TestUpdateFavoriteMovie();
+    TestUpdateFavoriteTv();
+  }, [setFavoriteMovie, setFavoriteTv, userEmail]);
+
   const [filter, setFilter] = useState("");
   const navigate = useNavigate();
   const searchChangeHandler = (e) => {
