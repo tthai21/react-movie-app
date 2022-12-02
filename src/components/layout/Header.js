@@ -371,7 +371,7 @@ const Header = () => {
               <div className=" mx-2 font-extrabold text-3xl text-primary">
                 Menu
               </div>
-              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:transition-all">
+              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:text-[28px] transition-all">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -390,7 +390,7 @@ const Header = () => {
               </button>
               <NavLink
                 to="/favorite"
-                className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover: transition-all"
+                className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:text-[28px] transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -409,7 +409,7 @@ const Header = () => {
 
                 <span>Favorite Movies</span>
               </NavLink>
-              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:transition-all">
+              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:text-[28px] transition-all">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -426,7 +426,7 @@ const Header = () => {
                 </svg>
                 <span>Favorite Shows</span>
               </button>
-              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:transition-all">
+              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:text-[28px] transition-all">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -443,7 +443,7 @@ const Header = () => {
                 </svg>
                 <span>Community</span>
               </button>
-              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:transition-all">
+              <button className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:text-[28px] transition-all">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -462,7 +462,7 @@ const Header = () => {
               </button>
               <button
                 onClick={logOutHandler}
-                className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:transition-all"
+                className="flex items-center justify-start gap-x-2 text-2xl p-3 text-white font-bold rounded-lg  opacity-50 hover:opacity-100 hover:text-[28px] transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
