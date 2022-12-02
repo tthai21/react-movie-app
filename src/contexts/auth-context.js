@@ -7,9 +7,7 @@ const AuthContext = createContext();
 function AuthProvider(props) {
   const [userInfo, setUserInfo] = useState(null);
   const [favoriteMovie, setFavoriteMovie] = useState([]);
-  const [favoriteTv, setFavoriteTv] = useState([]); 
-  
- 
+  const [favoriteTv, setFavoriteTv] = useState([]);  
 
   const value = {
     userInfo,

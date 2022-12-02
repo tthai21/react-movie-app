@@ -42,7 +42,7 @@ const MovieCard = (props) => {
     if (type === "movie") {
       favoriteMovie.push(movieCurrent);
       setFavoriteMovie(favoriteMovie);
-    } else {
+    } else if(type=== "tv") {
       favoriteTv.push(movieCurrent);
       setFavoriteTv(favoriteTv);
     }
