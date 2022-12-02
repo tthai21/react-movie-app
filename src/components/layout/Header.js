@@ -365,7 +365,7 @@ const Header = () => {
 
       {/* sidebar */}
       {userInfo ? (
-        <div className="sticky top-20 mt-10 bg-transparent w-[400px] h-[800px] float-left hidden 3xl:block ">
+        <div className="sticky top-20 mt-10 bg-transparent w-[350px] h-[800px] float-left hidden 3xl:block ">
           {userInfo && (
             <div className="flex flex-col items-start justify-center gap-y-10">
               <div className=" mx-2 font-extrabold text-3xl text-primary">
