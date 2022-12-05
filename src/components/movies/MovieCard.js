@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Star } from "../../components/photo/star-7207.svg";
+import { ReactComponent as Heart } from "../../components/photo/red-heart-icon.svg";
 import Button from "../button/Button";
 import { withErrorBoundary } from "react-error-boundary";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
 import { useAuth } from "contexts/auth-context";
+import { useEffect } from "react";
 
 const MovieCard = (props) => {
-  const { title, url, year, rate, id, type, path, isFavorite } = props;
+  const { title, url, year, rate, id, type, favorite } = props;
   const navigate = useNavigate();
   const navigateHandler = () => {
     navigate(`/${type}/${id}}`);
@@ -23,29 +25,39 @@ const MovieCard = (props) => {
     setFavoriteTv,
   } = useAuth();
 
+  const [isFavorite, setIsFavorite] = useState(favorite);
+  useEffect(() => {
+    setIsFavorite(favorite);
+  }, [favorite]);
+
   const movieCurrent = {
+    type,
     id,
     title,
-    path,
+    path: url,
     rate,
     year: `${new Date(year).getFullYear()}`,
-    isFavorite: true,
+    favorite,
   };
   const addFavoriteHandler = async () => {
-    const checkExitingMovie = favoriteMovie.find(
-      (item) => item.id === movieCurrent.id
-    );
-    const checkExitingTv = favoriteTv.find(
-      (item) => item.id === movieCurrent.id
-    );
-    if (checkExitingMovie || checkExitingTv) return;
+    setIsFavorite(true);
     if (type === "movie") {
-      favoriteMovie.push(movieCurrent);
+      const checkExitingMovie = favoriteMovie.find(
+        (item) => item.id === movieCurrent.id
+      );
+      if (checkExitingMovie) return;
+      favoriteMovie.push({ ...movieCurrent, favorite: true });
       setFavoriteMovie(favoriteMovie);
-    } else if(type=== "tv") {
-      favoriteTv.push(movieCurrent);
+    } else if (type === "tv") {
+      const checkExitingTv = favoriteTv.find(
+        (item) => item.id === movieCurrent.id
+      );
+      if (checkExitingTv) return;
+      favoriteTv.push({ ...movieCurrent, favorite: true });
       setFavoriteTv(favoriteTv);
     }
+ 
+
     await setDoc(doc(db, "user", userInfo?.email), {
       favorite_movie: favoriteMovie,
       favorite_tv: favoriteTv,
@@ -53,6 +65,7 @@ const MovieCard = (props) => {
   };
 
   const removeFavoriteHandler = async () => {
+    setIsFavorite(!isFavorite);
     if (type === "movie") {
       setFavoriteMovie(favoriteMovie.filter((movie) => movie.id !== id));
     } else if (type === "tv") {
@@ -90,7 +103,10 @@ const MovieCard = (props) => {
         </Button>
         {isFavorite ? (
           <Button bg-color="primary" onCLick={removeFavoriteHandler}>
-            Remove
+            <div className="flex items-center gap-x-2">
+              <Heart className="w-[20px]"></Heart>
+              <span>Remove</span>
+            </div>
           </Button>
         ) : (
           <Button bg-color="primary" onCLick={addFavoriteHandler}>

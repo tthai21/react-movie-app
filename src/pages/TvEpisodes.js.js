@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import MovieCard from "../components/movies/MovieCard";
 import { api_key, fetcher, tmdb_api } from "config";
 import { tmdb_url } from "config";
+import { useAuth } from "../contexts/auth-context";
 
 const itemsPerPage = 20;
 
@@ -43,8 +44,15 @@ const TvEpisodes = () => {
     if (currentItems && currentItems.results) setMovies(currentItems.results);
   }, [currentItems]);
 
-  if (!currentItems) return;
   const loading = !currentItems && !error;
+  const { favoriteTv } = useAuth();
+  const checkFavoriteTvId = favoriteTv?.map((item) => item.id);
+  const moviesNew = movies.map((item) => ({ ...item, favorite: false }));
+  const CheckedMovie = moviesNew.map((item) => ({
+    ...item,
+    favorite: checkFavoriteTvId?.includes(item.id),
+  }));
+  if (!currentItems) return;
 
   return (
     <div className="py-10 lg:page-container text-white mx-auto w-full">
@@ -56,8 +64,8 @@ const TvEpisodes = () => {
       </div>
       <div className=" sm:grid lg:grid xl:grid lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
         {!loading &&
-          movies?.length > 0 &&
-          movies.map((item) => (
+          CheckedMovie?.length > 0 &&
+          CheckedMovie?.map((item) => (
             <MovieCard
               id={item.id}
               key={item.id}
@@ -70,6 +78,7 @@ const TvEpisodes = () => {
               rate={item.vote_average}
               path={item.backdrop_path}
               type="tv"
+              favorite={item.favorite}
             ></MovieCard>
           ))}
       </div>

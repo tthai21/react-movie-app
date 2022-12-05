@@ -43,7 +43,7 @@ const FavoriteSlice = ({ data, type }) => {
                 }
                 rate={item.rate}
                 type={type}
-                isFavorite={item.isFavorite}
+                favorite={item.favorite}
                 ></MovieCard>
               </SwiperSlide>
             ))}

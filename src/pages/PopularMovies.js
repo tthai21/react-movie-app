@@ -3,6 +3,7 @@ import Button from "../components/button/Button";
 import useSWRInfinite from "swr/infinite";
 
 import MovieCard from "components/movies/MovieCard";
+import { useAuth } from "contexts/auth-context";
 
 const itemsPerPage = 20;
 
@@ -12,6 +13,14 @@ const PopularMovies = ({ url }) => {
     fetcher
   );
   const movies = data ? data.reduce((a, b) => a.concat(b.results), []) : [];
+  const { favoriteMovie } = useAuth();
+  const checkFavoriteMovieId = favoriteMovie?.map((item) => item.id);
+  const moviesNew = movies.map((item) => ({ ...item, favorite: false }));
+  const CheckedMovie = moviesNew.map((item) => ({
+    ...item,
+    favorite: checkFavoriteMovieId?.includes(item.id),
+  }));
+
   const isEmpty = data?.[0]?.results.length === 0;
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.results.length < itemsPerPage);
@@ -26,9 +35,9 @@ const PopularMovies = ({ url }) => {
       </div>
       <div className=" sm:grid lg:grid xl:grid lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-10 flex flex-col items-center">
         {!loading &&
-          movies?.length > 0 &&
-          movies.map((item) => (
-            <MovieCard            
+          CheckedMovie?.length > 0 &&
+          CheckedMovie?.map((item) => (
+            <MovieCard
               id={item.id}
               key={item.id}
               title={item.title}
@@ -39,6 +48,7 @@ const PopularMovies = ({ url }) => {
               }
               rate={item.vote_average}
               type="movie"
+              favorite={item.favorite}
             ></MovieCard>
           ))}
       </div>

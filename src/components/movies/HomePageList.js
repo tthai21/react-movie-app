@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { fetcher, tmdb_api } from "config";
 import MovieCard, { MovieCardSkeleton } from "./MovieCard";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
+import { useAuth } from "contexts/auth-context";
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -18,6 +19,13 @@ const HomePageList = ({ url }) => {
   useEffect(() => {
     if (data && data.results) setMovies(data.results);
   }, [data]);
+  const { favoriteMovie } = useAuth();
+  const checkFavoriteMovieId = favoriteMovie?.map((item) => item.id);
+  const moviesNew = movies.map((item) => ({ ...item, favorite: false }));
+  const CheckedMovie = moviesNew.map((item) => ({
+    ...item,
+    favorite: checkFavoriteMovieId?.includes(item.id),
+  }));
 
   return (
     <div className="movies-list text-white mb20 w-full">
@@ -54,8 +62,8 @@ const HomePageList = ({ url }) => {
           navigation={true}
           className="mySwiper"
         >
-          {movies.length > 0 &&
-            movies.map((item) => (
+          {CheckedMovie?.length > 0 &&
+            CheckedMovie?.map((item) => (
               <SwiperSlide key={item.id}>
                 <MovieCard
                   id={item.id}
@@ -65,7 +73,8 @@ const HomePageList = ({ url }) => {
                   rate={item.vote_average}
                   type="movie"
                   path={item.backdrop_path}
-                  isFavorite={item.isFavorite || false}
+                  favorite={item.favorite}
+
                 ></MovieCard>
               </SwiperSlide>
             ))}

@@ -11,11 +11,17 @@ import { auth, db } from "../../firebase/firebase-config";
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const Banner = () => {
-  const { userInfo } = useAuth();
+  const { userInfo,favoriteMovie } = useAuth();
 
   let moviesUrl = `${movie_db_url}upcoming?api_key=${api_key}`;
   const { data } = useSWR(moviesUrl, fetcher);
   const movies = data?.results || [];
+  const checkFavoriteMovieId = favoriteMovie?.map((item) => item.id);
+  const moviesNew = movies.map((item) => ({ ...item, favorite: false }));
+  const CheckedMovie = moviesNew.map((item) => ({
+    ...item,
+    favorite: checkFavoriteMovieId?.includes(item.id),
+  }));
   if (movies.backdrop_path) return;
 
   return (
@@ -33,8 +39,8 @@ const Banner = () => {
         navigation={true}
         className="mySwiper h-full rounded-lg"
       >
-        {movies?.length > 0 &&
-          movies.map((movie) => (
+        {CheckedMovie?.length > 0 &&
+          CheckedMovie?.map((movie) => (
             <SwiperSlide key={movie.id}>
               <BannerItem
                 userInfo={userInfo}
@@ -48,6 +54,7 @@ const Banner = () => {
                 title={movie.title}
                 rate={movie.vote_average}
                 favoriteYear={new Date(movie.release_date).getFullYear()}
+                favorite={movie.favorite}
               ></BannerItem>
             </SwiperSlide>
           ))}
